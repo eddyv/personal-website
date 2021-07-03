@@ -26,8 +26,7 @@
               <div class="m-3">
                 <a
                   class="animate-bounce inline-flex items-center bg-indigo-500 border-0 py-1 px-3 ml-2 focus:outline-none hover:bg-gray-200 rounded text-base text-white hover:text-black mt-4 md:mt-0"
-                  href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/Vaisman_Edward_Resume_2020.pdf"
-                  target="_blank"
+                  href="mailto:vaismanedward@gmail.com"
                   rel="noopener noreferrer"
                 >
                   <svg
@@ -51,7 +50,7 @@
               <div class="m-3">
                 <a
                   class="animate-bounce inline-flex items-center bg-indigo-500 border-0 py-1 px-3 ml-2 focus:outline-none hover:bg-gray-200 rounded text-base text-white hover:text-black mt-4 md:mt-0"
-                  href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/Vaisman_Edward_Resume_2020.pdf"
+                  href="https://github.com/eddyv"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -73,7 +72,7 @@
               <div class="m-3">
                 <a
                   class="animate-bounce inline-flex items-center bg-indigo-500 border-0 py-1 px-3 ml-2 focus:outline-none hover:bg-gray-200 rounded text-base text-white hover:text-black mt-4 md:mt-0"
-                  href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/Vaisman_Edward_Resume_2020.pdf"
+                  href="https://www.linkedin.com/in/edwardvaisman/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
