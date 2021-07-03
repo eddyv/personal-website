@@ -4,7 +4,9 @@
       <article
         class="container mx-auto prose prose-indigo lg:prose-xl xl:prose-xl dark:prose-dark dark:lg:prose-xl px-4 py-12"
       >
-        <h1 class="text-3xl text-center md:text-5xl lg:text-6xl dark:text-white">
+        <h1
+          class="text-3xl text-center md:text-5xl lg:text-6xl dark:text-white"
+        >
           {{ $page.post.title }}
         </h1>
 
@@ -13,12 +15,16 @@
             :alt="$page.post.og_image_description"
             :src="$page.post.og_image.src"
           />
-          <figcaption class="text-center text-sm italic text-gray-600 mt-4 dark:text-gray-200">
+          <figcaption
+            class="text-center text-sm italic text-gray-600 mt-4 dark:text-gray-200"
+          >
             {{ $page.post.og_image_description }}
           </figcaption>
         </figure>
 
-        <div class="text-sm md:text-base text-gray-600 flex justify-center text-center dark:text-gray-300">
+        <div
+          class="text-sm md:text-base text-gray-600 flex justify-center text-center dark:text-gray-300"
+        >
           <p>{{ $page.post.author }}</p>
           <p class="px-2">|</p>
           <time class="my-auto" :datetime="$page.post.dateTime">{{
@@ -52,13 +58,16 @@
         <div v-html="$page.post.content"></div>
       </article>
     </div>
+    <hr />
+    <contact-me />
   </Layout>
 </template>
 
 <script>
+import ContactMe from "../components/ContactMe.vue";
 export default {
   name: "Post",
-  components: {},
+  components: { ContactMe },
   metaInfo() {
     return {
       title: this.$page.post.title,

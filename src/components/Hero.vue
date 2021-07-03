@@ -22,7 +22,7 @@
           </p>
 
           <p class="text-base tracking-widest text-justify dark:text-white">
-            🐄Currently running Apache Kafka at scale
+            🐄 Currently running Apache Kafka at scale
             <a
               class="text-indigo-500 inline-flex items-center font-semibold hover:text-black dark:hover:text-white"
               href="https://tucows.com/"
