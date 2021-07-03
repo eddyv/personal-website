@@ -35,7 +35,7 @@
 
           <a
             class="text-indigo-500 inline-flex items-center font-semibold hover:text-black dark:hover:text-white"
-            href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/Vaisman_Edward_Resume_2020.pdf"
+            href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/resume_cv.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >

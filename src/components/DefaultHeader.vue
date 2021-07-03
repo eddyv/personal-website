@@ -60,7 +60,7 @@
       <ThemeSwitcher />
       <a
         class="inline-flex items-center bg-indigo-500 border-0 py-1 px-3 ml-2 focus:outline-none hover:bg-gray-200 rounded text-base text-white hover:text-black mt-4 md:mt-0"
-        href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/Vaisman_Edward_Resume_2020.pdf"
+        href="https://raw.githubusercontent.com/eddyv/awesome_cv/master/resume_cv.pdf"
         target="_blank"
         rel="noopener noreferrer"
       >
