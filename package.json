@@ -1,0 +1,27 @@
+{
+  "name": "gridsome-blog",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@gridsome/plugin-sitemap": "^0.4.0",
+    "@gridsome/source-filesystem": "^0.6.2",
+    "@gridsome/transformer-remark": "^0.6.4",
+    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.1",
+    "gridsome": "^0.7.23",
+    "gridsome-plugin-remark-prismjs-all": "^0.4.8",
+    "typeface-fira-sans": "^1.1.13",
+    "typeface-inter": "^3.18.1",
+    "typeface-lato": "^1.1.13",
+    "vue-material-design-icons": "^4.12.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.36",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
+  }
+}
