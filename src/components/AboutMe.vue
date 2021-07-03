@@ -81,7 +81,7 @@
                     <stop offset="1" stop-color="#00835C" />
                   </linearGradient>
                 </defs></svg
-              ><br /><br />I'm a software developer with 4 years of professional
+              ><br /><br />I'm a software developer with 5 years of professional
               experience and a potent interest for event-driven systems.
               Proficiency in operating multi-region distributed streaming
               platforms like Apache Kafka on AWS. Extensive software development
