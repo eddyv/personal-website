@@ -3,7 +3,7 @@ title: Blog Post Elements
 published: true
 description: This is my very first blog post! It contains a variety of examples to show what your markdown files will look like out of the box after gridsome & vuejs is done with them.
 tags: gridsome
-date_published: "2021-07-03"
+date_published: "2021-07-02"
 og_image: ./og/ogImage.png
 og_image_description: Powered by gridsome
 author: Edward Vaisman

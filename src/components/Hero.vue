@@ -62,7 +62,7 @@
         <div class="w-full md:w-2/5 py-6 text-center">
           <g-image
             class="w-4/5 z-50 rounded-full mx-auto"
-            src="~/assets/profile.jpg"
+            src="~/assets/profile.png"
           />
         </div>
       </div>

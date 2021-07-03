@@ -1,6 +1,6 @@
 <template>
   <header
-    class="text-gray-600 body-font sticky top-0 z-50 bg-white dark:bg-gray-900 dark:text-white bg-opacity-100 dark:bg-opacity-100 border-b-2"
+    class="text-gray-600 body-font z-50 bg-white dark:bg-gray-900 dark:text-white bg-opacity-100 dark:bg-opacity-100 border-b-2"
   >
     <div
       class="
