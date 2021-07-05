@@ -108,7 +108,11 @@ query Post($id: ID!) {
     content
     excerpt
     description
-    tags
+    tags {
+      id
+      title
+      path
+    }
     path
     humanTime : date_published(format:"Do MMMM YYYY")
     datetime : date_published(format:"ddd MMM DD YYYY hh:mm:ss zZ")

@@ -8,7 +8,7 @@
     <ContactMe />
   </Layout>
 </template>
-<page-query> query ($page: Int) { posts: allPost (sortBy: "date_published", order: DESC, filter: { published: {eq: true }}, perPage: 2, page: $page) @paginate { pageInfo { totalPages currentPage } edges { node { id title description tags path date_published timeToRead og_image } } } } </page-query>
+<page-query> query ($page: Int) { posts: allPost (sortBy: "date_published", order: DESC, filter: { published: {eq: true }}, perPage: 2, page: $page) @paginate { pageInfo { totalPages currentPage } edges { node { id title description tags { id title path } path date_published timeToRead og_image } } } } </page-query>
 
 <script>
 import { Pager } from "gridsome";
@@ -20,6 +20,14 @@ import Skills from "@/components/Skills.vue";
 import ContactMe from "@/components/ContactMe.vue";
 export default {
   metaInfo: { title: "Home" },
-  components: { Pager, Hero, AboutMe, Specializations, RecentPosts, Skills, ContactMe },
+  components: {
+    Pager,
+    Hero,
+    AboutMe,
+    Specializations,
+    RecentPosts,
+    Skills,
+    ContactMe,
+  },
 };
 </script>

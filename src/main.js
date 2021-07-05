@@ -8,13 +8,21 @@ require("~/main.css");
 require("gridsome-plugin-remark-prismjs-all/themes/night-owl.css");
 require("prismjs/plugins/line-numbers/prism-line-numbers.css");
 require("prismjs/plugins/command-line/prism-command-line.css");
-require("typeface-inter");
 
 import DefaultLayout from "~/layouts/Default.vue";
 
 export default function (Vue, { router, head, isClient }) {
   // Add attributes to HTML tag
   head.htmlAttrs = { lang: 'en' }
+
+
+  // Add a meta tag
+  head.meta.push({
+    name: 'keywords',
+    content: 'Edward Vaisman, Event Driven Architecture, Kafka, Event Streaming, Vue, Gridsome'
+  })
+
+
 
   // Set default layout as a global component
   Vue.component("Layout", DefaultLayout);
