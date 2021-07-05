@@ -2,7 +2,7 @@
 title: Deciding to Become an Event Driven Enterprise
 published: true
 description: If you’ve never dealt with event-driven systems, then the decision to turn your organization's underlying architecture from a traditional model to an event-driven model is a difficult one. Come see if your organization is ready to adopt event driven architectures
-tags: event-driven-architecture
+tags: ['event-driven-architecture', 'kafka']
 date_published: "2021-07-03"
 og_image: ./images/DecidingToBecomeAnEventDrivenEnterprise/event-driven-arch.png
 og_image_description: Deciding to Become an Event Driven Enterprise

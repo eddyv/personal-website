@@ -1,9 +1,11 @@
 <template>
   <div class="layout">
     <DefaultHeader />
-    <main>
-      <slot />
-    </main>
+    <transition name="fade" appear>
+      <main>
+        <slot />
+      </main>
+    </transition>
     <DefaultFooter />
   </div>
 </template>
@@ -15,3 +17,13 @@ export default {
   components: { DefaultHeader, DefaultFooter },
 };
 </script>
+
+<style>
+.fade-enter-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+</style>

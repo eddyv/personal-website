@@ -27,7 +27,7 @@ module.exports = {
   },
   theme: {
     fontFamily: {
-      sans: ['Fira Sans', 'Inter', 'Graphik', 'sans-serif'],
+      sans: ['Fira Sans', 'Graphik', 'sans-serif'],
       serif: ['Lato', 'Merriweather', 'serif'],
     },
     extend: {

@@ -11,6 +11,9 @@ module.exports = {
   siteName: "Edward Vaisman Personal Website",
   siteDescription: "A Collection of an Event Streaming Connoisseurs Musings & Meanderings ",
   siteUrl: "https://edwardvaisman.ca",
+  templates: {
+    Tag: '/tag/:id',
+  },
   plugins: [
     {
       use: "@gridsome/source-filesystem",
@@ -18,6 +21,13 @@ module.exports = {
         path: "blog/**/*.md",
         typeName: "Post",
         remark: {},
+        refs: {
+          // Creates a GraphQL collection from 'tags' in front-matter and adds a reference.
+          tags: {
+            typeName: 'Tag',
+            create: true
+          },
+        },
       },
     },
     {
@@ -29,6 +39,8 @@ module.exports = {
   ],
   transformers: {
     remark: {
+      externalLinksTarget: '_blank',
+      externalLinksRel: ['nofollow', 'noopener', 'noreferrer'],
       plugins: [
         [
           "remark-autolink-headings",
@@ -50,7 +62,7 @@ module.exports = {
               dos: "bash",
             },
           },
-        ],
+        ]
       ],
     },
   },
