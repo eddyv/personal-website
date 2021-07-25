@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/734091dd-1ab9-4f5e-9fef-c7380a5204eb/deploy-status)](https://app.netlify.com/sites/edwardvaisman-personal-site/deploys)
 # Personal Blog
 
 Welcome to the source code of my personal blog!
