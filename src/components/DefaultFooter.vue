@@ -58,7 +58,7 @@
         "
       >
         <a
-          href="github.com/eddyv/"
+          href="https://github.com/eddyv/"
           target="_blank"
           rel="noopener noreferrer"
           class="text-gray-500 hover:text-indigo-500 dark:text-white dark:hover:text-indigo-500"
