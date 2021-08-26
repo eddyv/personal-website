@@ -61,3 +61,5 @@ author: Edward Vaisman
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now the question becomes, **how do we build our Event-Driven Systems at scale?**
 
 --EOF
+
+Original publication can be found here: https://storiesfromtheherd.com/deciding-to-become-an-event-driven-enterprise-93b1dbbc4931
