@@ -5,8 +5,6 @@ backend:
 media_folder: "static/uploads"
 public_folder: "/uploads"
 
-publish_mode: editorial_workflow
-
 collections:
   - name: "posts"
     label: "Posts"
