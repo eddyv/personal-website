@@ -3,28 +3,14 @@ const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   darkMode: 'class',
-  purge: {
-    enabled: true,
-    content: [
-      "./src/**/*.vue",
-      "./src/**/*.js",
-      "./src/**/*.jsx",
-      "./src/**/*.html",
-      "./src/**/*.pug",
-      "./src/**/*.md",
-    ],
-    safelist: [
-      "body",
-      "html",
-      "img",
-      "a",
-      "ol",
-      "ul",
-      "g-image",
-      "g-image--lazy",
-      "g-image--loaded",
-    ],
-  },
+  content: [
+    "./src/**/*.vue",
+    "./src/**/*.js",
+    "./src/**/*.jsx",
+    "./src/**/*.html",
+    "./src/**/*.pug",
+    "./src/**/*.md",
+  ],
   theme: {
     fontFamily: {
       sans: ['Fira Sans', 'Graphik', 'sans-serif'],
