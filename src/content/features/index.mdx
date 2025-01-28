@@ -1,0 +1,269 @@
+---
+document_title: "Features"
+meta_description: "Some of the features that make this template a great choice for your next Astro project."
+meta_keywords: "astro, alfadev, starter, features"
+
+title: "This is alfadev-astro-starter"
+description: "Here are some of the features that make this template a great choice for your next project."
+---
+
+<Section
+  section={{
+    title: "You love Markdown?",
+    content:
+      "We've got you covered. This template is built with <span class='text-[#fcb32c] font-bold'>MDX</span> and <span class='text-[#38bdf8] font-bold'>Astro</span>. You can write your content in Markdown and use React or Astro components to add complexity and interactivity. Fast, organized, and easy to use. <br/> <br/> In fact, <b>everything you see here is written</b> in Markdown. Exciting, isn't it?",
+  }}
+/>
+
+<div class="row mb-10 lg:mb-20">
+  <div class="col-12 text-sm">
+    ```astro
+    ---
+    title: "Features"
+    page_title: "This is alfadev-astro-starter"
+    description: "Here are some of the features that make this template a great choice for your next project."
+    show_description: true
+    ---
+
+    <Section
+      section={{
+        title: "You love Markdown?",
+        content:
+          "We've got you covered. This template is built with <span class='text-[#fcb32c] font-bold'>MDX</span> ...",
+      }}
+    />
+    ...
+
+    ````
+
+</div>
+<p class="text-[0.5rem] text-text">A codeblock with mdx inside a markdown file, how meta!</p>
+</div>
+
+<Section
+  section={{
+    title: "The content stays in place",
+    content:
+      "The site content is separated from the layout, so it feels intuitive and you can change the layout without affecting the content. The content is written either in Markdown (for static pages) or in configuration files (for core site data).",
+  }}
+/>
+
+<div class="row mb-10 lg:mb-20">
+  <div class="col-12 md:col-6 text-sm py-2">
+      ```json
+      // @/config/config.json
+      {
+        "site": {
+          "title": "alfadev-astro-starter",
+          "base_url": "https://astro-starter.alfadev.io",
+          "base_path": "/",
+          "trailing_slash": false,
+          "favicon": "/images/favicon.ico",
+          ...
+        },
+        ...
+      }
+      ```
+  </div>
+  <div class="col-12 md:col-6 py-2">
+
+        ```html
+        <html lang="en">
+        <head>
+        <!-- favicon -->
+        <link rel="shortcut icon" href="/images/favicon.ico">
+        <!-- title -->
+        <title>alfadev-astro-starter</title>
+        ...
+        ```
+
+  </div>
+
+</div>
+
+<Section
+  section={{
+    title:
+      "Support for <span class='text-[#007acc] font-bold'>TypeScript</span> and <span class='text-[#fcb32c] font-bold'>JavaScript</span>",
+    content:
+      "<span class='text-accent'>Astro</span> does, so does the starter. <br/> We all know theres a love-hate relationship with TypeScript. This template is built with TypeScript, so you can enjoy the benefits of static typing and code completion. But if you're not a fan, you can easily remove it and use plain JavaScript.<br/><br/> In Fact, theres examples of both in the codebase.<br/><br/><span class='text-accent'>Astro</span> content configuration is written in TypeScript, so you can have type safety and code completion when creating new pages at start.",
+  }}
+/>
+
+<div class="row mb-10 lg:mb-20">
+  <div class="col-12 md:col-6 text-sm py-2">
+      ```ts
+      export interface PageConfig {
+        document_title?: string;
+        meta_title?: string;
+        meta_description?: string;
+        meta_keywords?: string[];
+        meta_author?: string;
+        canonical_url?: string;
+        noindex?: boolean;
+        meta_image?: string;
+      }
+
+      export interface PageCommonProps {
+        title: string;
+        description?: string;
+        buttons?: LinkButton[] & { length: 0 | 1 | 2 | 3 | 4 };
+        sections?: PageSection[];
+      }
+
+      export type PageType<data_type = any> = PageCommonProps & PageConfig & { data: data_type };
+      ```
+
+  </div>
+  <div class="col-12 md:col-6 text-sm py-2">
+
+        ```ts
+        const zodPageConfig = z.custom<PageType>();
+
+        // Pages collection schema
+        const pagesCollection = defineCollection({
+          type: "content",
+          schema: zodPageConfig,
+        });
+
+        const indexSchema = z.intersection(
+          z.object({
+            banner: z.custom<Section>(),
+            features: z.object({
+              title: z.string(),
+              description: z.string(),
+              feaure_list: z.any(),
+            }),
+            testimonial: z.custom<Testimonial>(),
+            call_to_action: z.object({
+              title: z.string(),
+              description: z.string(),
+              button: z.custom<LinkButton>(),
+            }),
+          }),
+          zodPageConfig,
+        );
+
+        const indexPage = defineCollection({
+          type: "content",
+          schema: indexSchema,
+        });
+
+        // Export collections
+        export const collections = {
+          about: pagesCollection,
+          changelog: pagesCollection,
+          contact: pagesCollection,
+          features: pagesCollection,
+          homepage: indexPage,
+          pages: pagesCollection,
+        };
+
+        ```
+
+  </div>
+
+</div>
+
+<Section
+  section={{
+    title: "Layout is ready and recognizable",
+    content:
+      "The layout is ready to go. It's responsive, accessible, and SEO-friendly. It's built with <span class='text-[#38bdf8] font-bold'>Tailwind CSS</span> <span class='text-purple-600 font-bold'><a href='https://github.com/karolis-sh/tailwind-bootstrap-grid#readme'>tailwind-bootstrap-grid</a></span> plugin. You can customize it to fit your needs or start adding content right away.",
+  }}
+/>
+
+<div class="row mb-10 lg:mb-20">
+  <div class="col-12 md:col-6 text-sm">
+    ```html {(1, 3 - 4)}
+    <div class="container border-4 border-primary h-full content-center">
+      <div class="row border-4 border-secondary">
+        <div class="col-12 md:col-6 lg:col-3 border-accent">
+          <p>Column 1</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-accent">
+          <p>Column 2</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-accent">
+          <p>Column 3</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-accent">
+          <p>Column 4</p>
+        </div>
+      </div>
+    </div>
+    ```
+  </div>
+  <div class="col-12 md:col-6 p-4">
+    <div class="container border-4 border-primary h-full content-center">
+      <div class="row border-4 border-secondary">
+        <div class="col-12 md:col-6 lg:col-3 border-4 border-accent">
+          <p>Column 1</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-4 border-accent">
+          <p>Column 2</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-4 border-accent">
+          <p>Column 3</p>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 border-4 border-accent">
+          <p>Column 4</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<Section
+  section={{
+    title: "Ready to fit your theme",
+    content:
+      "The template is designed to be easily customizable. You can change the colors, fonts, and layout to fit your brand. It's built with <span class='text-[#e41c81] font-bold'>Sass</span> and <span class='text-[#38bdf8] font-bold'>Tailwind CSS</span>, so you can easily change the styles to match your brand.",
+  }}
+/>
+
+<div class="row mb-10 lg:mb-20">
+<div class="col-12 md:col-6 text-sm p-4 md:p-1">
+  ```scss
+    // @/styles/theme.scss
+
+    $default: (
+      "primary": #1164a3,
+      "secondary": #199AFC,
+      "accent": #ff5a02,
+      "background": #f9f9f9,
+      "background-contrast": #141414,
+      "surface": #ffffff,
+      "surface-contrast": #000000,
+      "border": #f5f5f5,
+      "text": #2a2a2a,
+      "text-secondary": #494949,
+      "text-disabled": #999999,
+    );
+
+    $dark: (
+    ...
+    );
+
+```
+
+</div>
+<div class="col-12 md:col-6 content-center">
+<div class="container grid md:grid-cols-6 grid-cols-3 gap-2">
+<div class="w-16 h-16 rounded shadow-md shadow-background-contrast/20 bg-primary"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-secondary"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-accent"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-background"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-background-contrast"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-surface"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-surface-contrast"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-border"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-text"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-text-secondary"></div>
+<div class="w-16 h-16 rounded shadow-sm shadow-background-contrast/20 bg-text-disabled"></div>
+</div>
+</div>
+</div>
+
+
+```
