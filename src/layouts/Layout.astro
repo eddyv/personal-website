@@ -1,0 +1,53 @@
+---
+import "@styles/global.css";
+import { SEO } from "astro-seo";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  url?: string;
+  type?: string;
+  image?: string;
+  backgroundImage?: string;
+}
+
+const {
+  canonical = "https://edwardvaisman.ca",
+  description = "Software Engineer based in Toronto, Canada. Specialized in Event-Driven Architectures, Microservices, and Serverless technologies.",
+  title = "Edward Vaisman - Software Engineer",
+  url = "https://edwardvaisman.ca",
+  type = "website",
+  image = "",
+  backgroundImage = "",
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonical}
+      openGraph={{
+        basic: {
+          title: title,
+          url: url,
+          image: image,
+          type: type,
+        },
+        optional: {
+          siteName: title,
+        },
+      }}
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" as="image" href={backgroundImage} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,37 +1,19 @@
 ---
-import Section from "@/components/core/Section.astro";
-import Features from "@/components/Features.astro";
-import Testimonial from "@/components/Testimonial.astro";
-import Base from "@/layouts/Base.astro";
-import Cta from "@/layouts/partials/Cta.astro";
-import { getEntry } from "astro:content";
+import Background from "@components/Background.astro";
+import Layout from "@layouts/Layout.astro";
+import type { ImageMetadata } from "astro";
 
-const homepage = await getEntry("homepage", "index");
-// console.log(homepage);
-const { banner, sections, features, testimonial } = homepage.data;
-const call_to_action = homepage.data.call_to_action;
+// Get all wallpapers using import.meta.glob
+const wallpapers = Object.values(
+  import.meta.glob<{ default: ImageMetadata }>('/src/assets/wallpapers/*.{jpeg,jpg,png,gif}')
+);
+
+// Select random wallpaper function and await only that one
+const randomWallpaperModule = wallpapers[Math.floor(Math.random() * wallpapers.length)];
+const randomWallpaper = await randomWallpaperModule();
 ---
 
-<Base>
-  <!-- banner -->
-  <section class="lg:mb-10 animate-fade-in">
-    <Section section={banner} />
-  </section>
-  <!-- multi section -->
-  {
-    sections && (
-      <section class="multi-section">
-        {sections.map((section) => (
-          <Section section={section} />
-        ))}
-      </section>
-    )
-  }
-  <!-- key features -->
-  <Features features={features} />
-  <!-- testimonial -->
-  <Testimonial testimonial={testimonial} />
-  <!-- call to action -->
-  <Cta {...call_to_action} />
-  <!-- <Content /> -->
-</Base>
+<Layout
+  backgroundImage={randomWallpaper.default.src}>
+  <Background src={randomWallpaper.default} />
+</Layout>
