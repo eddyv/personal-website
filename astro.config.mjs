@@ -7,6 +7,8 @@ import react from "@astrojs/react";
 
 import sitemap from "@astrojs/sitemap";
 
+import icon from 'astro-icon';
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://edwardvaisman.ca",
@@ -15,6 +17,12 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap(),
+  icon({
+    include: {
+      mdi: ['apple'],
+    },
+  })
+  ],
   output: "server",
 });

@@ -1,6 +1,7 @@
 ---
 import "@styles/global.css";
 import { SEO } from "astro-seo";
+import Header from "@components/Header.astro";
 
 interface Props {
   title?: string;
@@ -48,6 +49,7 @@ const {
     <link rel="preload" as="image" href={backgroundImage} />
   </head>
   <body>
+    <Header />
     <slot />
   </body>
 </html>
