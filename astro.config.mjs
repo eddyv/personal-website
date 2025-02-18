@@ -20,7 +20,8 @@ export default defineConfig({
   integrations: [react(), sitemap(),
   icon({
     include: {
-      mdi: ['apple'],
+      mdi: ['apple', 'spotify', 'github', 'file-pdf-box', 'console'],
+      local: ['*'],
     },
   })
   ],
