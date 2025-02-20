@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import { SEO } from "astro-seo";
 import Header from "@components/Header.astro";
+import Terminal from "@components/Terminal.tsx";
 
 interface Props {
   title?: string;
@@ -44,12 +45,13 @@ const {
     />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preload" as="image" href={backgroundImage} />
   </head>
   <body>
     <Header />
+    <Terminal client:load />
     <slot />
   </body>
 </html>
