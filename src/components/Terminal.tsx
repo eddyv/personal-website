@@ -1,89 +1,27 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useTerminalCommands } from '../hooks/useTerminalCommands';
+import { useTerminalInput } from '../hooks/useTerminalInput';
+import { renderPrompt } from '../utils/terminalUtils';
 
 interface Props {
-    initialText?: string[];
+    initialText?: (string | React.ReactNode)[];
 }
 
+const initText = `Welcome! This is an interactive terminal.
+You can type commands below where you see the blinking cursor.
 
-const renderPrompt = (cmd = '') => {
-    return [
-        <span key="user" className="text-cyan-400">edwardvaisman</span>,
-        <span key="in" className="text-white/90"> in </span>,
-        <span key="path" className="text-green-400">~/public_html </span>,
-        <span key="lambda" className="text-yellow-400">λ </span>,
-        <span key="cmd" className="text-white/90"> {cmd}</span>
-    ];
-};
-
-const initText = `
-Welcome to My Terminal
-Name: Edward Vaisman
-Role: Software Developer
-Location: 🍁 Toronto, ON
-
-Contact: vaismanedward@gmail.com
-Github: github.com/eddyv
-
-Ask me anything!
-
-Type the slash command '/help' to see available commands
+Try typing '/whoami' and press Enter to learn about me!
 `;
 
 const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
-    const [input, setInput] = useState('');
-    const [history, setHistory] = useState<(string | React.ReactNode)[]>(initialText);
-    const [commandHistory, setCommandHistory] = useState<string[]>([]);
-    const [historyIndex, setHistoryIndex] = useState(-1);
+    const { history, commandHistory, executeCommand, setHistory } = useTerminalCommands();
+    const { input, setInput, handleKeyDown } = useTerminalInput(commandHistory, executeCommand);
     const inputRef = useRef<HTMLInputElement>(null);
     const terminalRef = useRef<HTMLDivElement>(null);
 
-    const commands: { [key: string]: () => string } = {
-        '/help': () => 'Available commands: /help, /about, /clear, /contact, /projects',
-        '/about': () => 'I am a Software Engineer based in Toronto, specializing in Event-Driven Architectures and Microservices.',
-        '/clear': () => {
-            setHistory([]);
-            return '';
-        },
-        '/contact': () => 'Email: vaismanedward@gmail.com\nGitHub: github.com/eddyv',
-        '/projects': () => 'Visit github.com/eddyv to see my projects'
-    };
-
-    const handleCommand = (cmd: string) => {
-        const trimmedCmd = cmd.trim().toLowerCase();
-        if (trimmedCmd === '') return;
-
-        const output = commands[trimmedCmd]
-            ? commands[trimmedCmd]()
-            : `Command not found: ${trimmedCmd}. Type 'help' for available commands.`;
-
-        setHistory(prev => [...prev, <div key={prev.length} className="flex">{renderPrompt(cmd)}</div>, ...(output ? [output] : [])]);
-        setCommandHistory(prev => [...prev, cmd]);
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            handleCommand(input);
-            setInput('');
-            setHistoryIndex(-1);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            if (historyIndex < commandHistory.length - 1) {
-                const newIndex = historyIndex + 1;
-                setHistoryIndex(newIndex);
-                setInput(commandHistory[commandHistory.length - 1 - newIndex] || '');
-            }
-        } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            if (historyIndex > 0) {
-                const newIndex = historyIndex - 1;
-                setHistoryIndex(newIndex);
-                setInput(commandHistory[commandHistory.length - 1 - newIndex] || '');
-            } else {
-                setHistoryIndex(-1);
-                setInput('');
-            }
-        }
-    };
+    useEffect(() => {
+        setHistory([...initialText]);
+    }, []);
 
     useEffect(() => {
         if (terminalRef.current) {
@@ -103,9 +41,9 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
                     <span className="text-sm text-white/60">terminal</span>
                 </div>
             </div>
-            
+
             <div className="flex h-[calc(100%-5rem)] flex-col">
-                <div 
+                <div
                     ref={terminalRef}
                     className="flex-1 overflow-auto p-4 font-mono text-sm text-white/90"
                 >
@@ -127,7 +65,7 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
-                            className="ml-2 flex-1 bg-transparent text-white/90 outline-none"
+                            className="ml-2 flex-1 bg-transparent outline-none text-white/90"
                             autoFocus
                         />
                     </div>
