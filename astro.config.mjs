@@ -21,7 +21,6 @@ export default defineConfig({
   icon({
     include: {
       mdi: ['apple', 'spotify', 'github', 'file-pdf-box', 'console', 'email'],
-      local: ['*'],
     },
   })
   ],
