@@ -76,14 +76,12 @@ Usage: /clear`,
       ],
       description:
         "Ask an llm questions about me! It's been fed my resume and can answer questions about it.",
-      helpText: `Verify if this terminal has AI capabilities.
-Usage: /ai`,
+      helpText: `Usage: /ai [question]`,
       handle: () => "I'm just a simple terminal, not an AI.",
     },
     "/whoami": {
-      description: "Display personal information",
-      helpText: `Show detailed information about Edward Vaisman.
-Usage: /whoami`,
+      description: "Display information about Edward Vaisman",
+      helpText: `Usage: /whoami`,
       handle: () => personalInfo,
     },
   };

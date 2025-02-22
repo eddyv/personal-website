@@ -9,9 +9,11 @@ interface Props {
 }
 
 const initText = `Welcome! This is an interactive terminal.
-You can type commands below where you see the blinking cursor.
 
-Try typing '/whoami' and press Enter to learn about me!
+You can type commands below where you see the blinking cursor.
+Don't see a blinking cursor? Click on typing placeholder text and start typing!
+
+Not sure where to start? Try typing '/help' and press Enter.
 `;
 
 const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
