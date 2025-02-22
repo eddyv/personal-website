@@ -8,6 +8,7 @@
         "@fontsource-variable/dancing-script": "^5.1.1",
         "@fontsource/ibm-plex-mono": "^5.1.1",
         "@fontsource/ibm-plex-sans": "^5.1.1",
+        "@google/generative-ai": "^0.22.0",
         "@tailwindcss/vite": "^4.0.6",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
@@ -162,6 +163,8 @@
     "@fontsource/ibm-plex-mono": ["@fontsource/ibm-plex-mono@5.1.1", "", {}, "sha512-1aayqPe/ZkD3MlvqpmOHecfA3f2B8g+fAEkgvcCd3lkPP0pS1T0xG5Zmn2EsJQqr1JURtugPUH+5NqvKyfFZMQ=="],
 
     "@fontsource/ibm-plex-sans": ["@fontsource/ibm-plex-sans@5.1.1", "", {}, "sha512-s6xHuHCYxZbIZV0Qchw+EoucPYWCP3PgLs9+oF3u1kLQKwabWaUC3Fm30y6n3VIMCqR89dpkcS8LTqH/IGTDDQ=="],
+
+    "@google/generative-ai": ["@google/generative-ai@0.22.0", "", {}, "sha512-mLR3PDWCk5O/BWNyDvFDIiwKeXQmFGZ+kJFd9m73QrUPCFREttJyVbBPTW4y9CwTbaltLMDaLDfroCrRv5Bl8Q=="],
 
     "@iconify-json/mdi": ["@iconify-json/mdi@1.2.3", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg=="],
 

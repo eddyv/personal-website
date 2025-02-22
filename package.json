@@ -16,6 +16,7 @@
     "@fontsource-variable/dancing-script": "^5.1.1",
     "@fontsource/ibm-plex-mono": "^5.1.1",
     "@fontsource/ibm-plex-sans": "^5.1.1",
+    "@google/generative-ai": "^0.22.0",
     "@tailwindcss/vite": "^4.0.6",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
