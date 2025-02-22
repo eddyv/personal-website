@@ -12,7 +12,7 @@
       "@pages/*": ["src/pages/*"],
       "@icons/*": ["src/icons/*"],
       "@utils/*": ["src/utils/*"],
-      "@hooks/*": ["src/hooks/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",

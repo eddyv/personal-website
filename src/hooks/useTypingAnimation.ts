@@ -7,18 +7,21 @@ export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
   const [hintIndex, setHintIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const commandEntries = useMemo(() =>
-    Object.entries(demoCommands).map(([key, command]) => {
-      const hints = command.argsHint || [''];
-      return {
-        key,
-        hints: hints.map(hint => `${key} ${hint}`.trim())
-      };
-    })
-    , [demoCommands]);
+  const commandEntries = useMemo(
+    () =>
+      Object.entries(demoCommands).map(([key, command]) => {
+        const hints = command.argsHint || [""];
+        return {
+          key,
+          hints: hints.map((hint) => `${key} ${hint}`.trim()),
+        };
+      }),
+    [demoCommands],
+  );
 
   const currentCommand = commandEntries[commandIndex % commandEntries.length];
-  const currentPlaceholder = currentCommand.hints[hintIndex % currentCommand.hints.length];
+  const currentPlaceholder =
+    currentCommand.hints[hintIndex % currentCommand.hints.length];
 
   useEffect(() => {
     const delay = isTyping ? 150 : text.length === 0 ? 500 : 50;
@@ -34,10 +37,10 @@ export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
         if (text.length === 0) {
           // Cycle through hints first, then move to next command
           if (hintIndex + 1 < currentCommand.hints.length) {
-            setHintIndex(i => i + 1);
+            setHintIndex((i) => i + 1);
           } else {
             setHintIndex(0);
-            setCommandIndex(i => i + 1);
+            setCommandIndex((i) => i + 1);
           }
           setIsTyping(true);
         } else {
