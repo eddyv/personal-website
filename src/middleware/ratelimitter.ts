@@ -87,18 +87,19 @@ const rateLimiter = new RateLimiter({
 
 export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   const { request } = context;
+  console.log(context.site);
 
   // Only apply rate limiting to the AI endpoint
   if (!request.url.includes("/api/")) {
-    console.log("Skipping rate limiting middleware");
     return next();
   }
 
   // Use both client ID and IP for more robust rate limiting
   const clientId = request.headers.get("X-Client-ID");
   const clientIP =
-    request.headers.get("x-forwarded-for") ||
-    request.headers.get("x-real-ip") ||
+    request.headers.get("CF-Connecting-IP") ||
+    request.headers.get("X-Forwarded-For") ||
+    request.headers.get("X-Real-IP") ||
     "unknown";
 
   // Combine both identifiers for better rate limiting
