@@ -7,7 +7,7 @@ import react from "@astrojs/react";
 
 import sitemap from "@astrojs/sitemap";
 
-import icon from 'astro-icon';
+import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,12 +17,14 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [react(), sitemap(),
-  icon({
-    include: {
-      mdi: ['apple', 'spotify', 'github', 'file-pdf-box', 'console', 'email'],
-    },
-  })
+  integrations: [
+    react(),
+    sitemap(),
+    icon({
+      include: {
+        mdi: ["apple", "spotify", "github", "file-pdf-box", "console", "email"],
+      },
+    }),
   ],
   output: "server",
 });

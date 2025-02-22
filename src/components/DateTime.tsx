@@ -1,24 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
   short: {
-    hour: 'numeric',
-    minute: 'numeric',
+    hour: "numeric",
+    minute: "numeric",
   },
   medium: {
-    weekday: 'short',
-    hour: 'numeric',
-    minute: 'numeric',
+    weekday: "short",
+    hour: "numeric",
+    minute: "numeric",
   },
   full: {
-    dateStyle: 'full',
-    timeStyle: 'full',
+    dateStyle: "full",
+    timeStyle: "full",
   },
 };
 
 export default function DateTime() {
   const [time, setTime] = useState(new Date());
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0,
+  );
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,11 +31,11 @@ export default function DateTime() {
       setWindowWidth(window.innerWidth);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       clearInterval(timer);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

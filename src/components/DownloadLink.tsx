@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface DownloadLinkProps {
   href: string;
@@ -6,20 +6,24 @@ interface DownloadLinkProps {
   shortcut?: string;
 }
 
-export default function DownloadLink({ href, label, shortcut }: DownloadLinkProps) {
+export default function DownloadLink({
+  href,
+  label,
+  shortcut,
+}: DownloadLinkProps) {
   useEffect(() => {
     if (!shortcut) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      const key = shortcut?.toLowerCase().replace('⌘', '');
+      const key = shortcut?.toLowerCase().replace("⌘", "");
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === key) {
         event.preventDefault();
         window.location.href = href;
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [shortcut, href]);
 
   const handleClick = (e: React.MouseEvent) => {
