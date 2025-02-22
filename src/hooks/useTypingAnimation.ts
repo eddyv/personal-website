@@ -1,47 +1,53 @@
-import { useState, useEffect } from "react";
+import type { Command } from "@utils/createTerminalCommands";
+import { useState, useEffect, useMemo } from "react";
 
-const demoCommands = ["/whoami", "/projects", "/about", "/help", "/contact"];
-
-export const useTypingAnimation = () => {
-  const [currentText, setCurrentText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
+export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
+  const [text, setText] = useState("");
+  const [commandIndex, setCommandIndex] = useState(0);
+  const [hintIndex, setHintIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
+  const commandEntries = useMemo(() =>
+    Object.entries(demoCommands).map(([key, command]) => {
+      const hints = command.argsHint || [''];
+      return {
+        key,
+        hints: hints.map(hint => `${key} ${hint}`.trim())
+      };
+    })
+    , [demoCommands]);
+
+  const currentCommand = commandEntries[commandIndex % commandEntries.length];
+  const currentPlaceholder = currentCommand.hints[hintIndex % currentCommand.hints.length];
+
   useEffect(() => {
-    const command = demoCommands[currentIndex];
+    const delay = isTyping ? 150 : text.length === 0 ? 500 : 50;
 
-    if (isTyping) {
-      if (currentText.length < command.length) {
-        // Typing effect
-        const timeoutId = setTimeout(() => {
-          setCurrentText(command.slice(0, currentText.length + 1));
-        }, 150); // Typing speed
-        return () => clearTimeout(timeoutId);
-      } else {
-        // Pause at the end of typing
-        const timeoutId = setTimeout(() => {
+    const timer = setTimeout(() => {
+      if (isTyping) {
+        if (text.length < currentPlaceholder.length) {
+          setText(currentPlaceholder.slice(0, text.length + 1));
+        } else {
           setIsTyping(false);
-        }, 1000); // Wait time after typing
-        return () => clearTimeout(timeoutId);
-      }
-    } else {
-      // Pause before erasing
-      const timeoutId = setTimeout(
-        () => {
-          if (currentText.length === 0) {
-            // Move to next command
-            setCurrentIndex((prev) => (prev + 1) % demoCommands.length);
-            setIsTyping(true);
+        }
+      } else {
+        if (text.length === 0) {
+          // Cycle through hints first, then move to next command
+          if (hintIndex + 1 < currentCommand.hints.length) {
+            setHintIndex(i => i + 1);
           } else {
-            // Erasing effect
-            setCurrentText(currentText.slice(0, -1));
+            setHintIndex(0);
+            setCommandIndex(i => i + 1);
           }
-        },
-        currentText.length === 0 ? 500 : 50,
-      ); // Erasing speed
-      return () => clearTimeout(timeoutId);
-    }
-  }, [currentText, currentIndex, isTyping]);
+          setIsTyping(true);
+        } else {
+          setText(text.slice(0, -1));
+        }
+      }
+    }, delay);
 
-  return currentText;
+    return () => clearTimeout(timer);
+  }, [text, isTyping, currentPlaceholder, currentCommand.hints.length]);
+
+  return text;
 };

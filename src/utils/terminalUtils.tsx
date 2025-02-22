@@ -1,5 +1,3 @@
-import React from "react";
-
 export const renderPrompt = (cmd = "") => {
   return [
     <span key="user" className="text-cyan-400">

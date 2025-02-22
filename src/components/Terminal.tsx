@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import { useTerminalCommands } from "../hooks/useTerminalCommands";
-import { useTerminalInput } from "../hooks/useTerminalInput";
-import { renderPrompt } from "../utils/terminalUtils";
-import { useTypingAnimation } from "../hooks/useTypingAnimation";
+import { useTerminalCommands } from "@hooks/useTerminalCommands";
+import { useTerminalInput } from "@hooks/useTerminalInput";
+import { renderPrompt } from "@utils/terminalUtils";
+import { useTypingAnimation } from "@hooks/useTypingAnimation";
 
 interface Props {
   initialText?: (string | React.ReactNode)[];
@@ -15,7 +15,7 @@ Try typing '/whoami' and press Enter to learn about me!
 `;
 
 const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
-  const { history, commandHistory, executeCommand, setHistory } =
+  const { commands, history, commandHistory, executeCommand, setHistory } =
     useTerminalCommands();
   const { input, setInput, handleKeyDown } = useTerminalInput(
     commandHistory,
@@ -23,7 +23,7 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
-  const placeholder = useTypingAnimation();
+  const typingAnimation = useTypingAnimation(commands);
 
   useEffect(() => {
     setHistory([...initialText]);
@@ -72,7 +72,7 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
                 onKeyDown={handleKeyDown}
                 className="ml-2 flex-1 bg-transparent outline-none text-white/90"
                 autoFocus
-                placeholder={placeholder}
+                placeholder={typingAnimation}
               />
             </div>
           </div>
