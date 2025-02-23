@@ -26,6 +26,10 @@ export default defineConfig({
         "react-dom/server": "react-dom/server.edge",
       },
     },
+    // build: {
+    //   // react minification 
+    //   minify: false,
+    // }
   },
 
   env: {
