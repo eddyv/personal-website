@@ -27,9 +27,9 @@ export default defineConfig({
       },
     },
     build: {
-      // react minification 
+      // react minification
       minify: false,
-    }
+    },
   },
 
   env: {
