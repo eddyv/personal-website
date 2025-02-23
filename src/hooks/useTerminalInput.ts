@@ -3,12 +3,19 @@ import { useState, useCallback, type KeyboardEvent } from "react";
 export const useTerminalInput = (
   commandHistory: string[],
   onExecuteCommand: (cmd: string) => void,
+  isExecuting: boolean,
 ) => {
   const [input, setInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState(-1);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
+      // prevent command execution while another command is executing
+      if (isExecuting) {
+        e.preventDefault();
+        return;
+      }
+
       switch (e.key) {
         case "Enter":
           onExecuteCommand(input);
@@ -40,7 +47,7 @@ export const useTerminalInput = (
           break;
       }
     },
-    [historyIndex, commandHistory, input, onExecuteCommand],
+    [historyIndex, commandHistory, input, onExecuteCommand, isExecuting],
   );
 
   return {

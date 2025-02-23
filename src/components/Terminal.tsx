@@ -3,6 +3,7 @@ import { useTerminalCommands } from "@hooks/useTerminalCommands";
 import { useTerminalInput } from "@hooks/useTerminalInput";
 import { renderPrompt } from "@utils/terminalUtils";
 import { useTypingAnimation } from "@hooks/useTypingAnimation";
+import { LoadingDots } from "@components/LoadingDots";
 
 interface Props {
   initialText?: (string | React.ReactNode)[];
@@ -17,11 +18,18 @@ Not sure where to start? Try typing '/help' and press Enter.
 `;
 
 const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
-  const { commands, history, commandHistory, executeCommand, setHistory } =
-    useTerminalCommands();
+  const {
+    commands,
+    history,
+    commandHistory,
+    executeCommand,
+    setHistory,
+    isExecuting,
+  } = useTerminalCommands();
   const { input, setInput, handleKeyDown } = useTerminalInput(
     commandHistory,
     executeCommand,
+    isExecuting,
   );
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -58,7 +66,7 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
           >
             {history.map((line, i) => (
               <div key={i} className="mb-1 leading-relaxed whitespace-pre-wrap">
-                {typeof line === "string" ? line : line}
+                {line === "..." ? <LoadingDots /> : line}
               </div>
             ))}
           </div>
@@ -74,7 +82,10 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
                 onKeyDown={handleKeyDown}
                 className="ml-2 flex-1 bg-transparent outline-none text-white/90"
                 autoFocus
-                placeholder={typingAnimation}
+                placeholder={
+                  isExecuting ? "Command executing..." : typingAnimation
+                }
+                disabled={isExecuting}
               />
             </div>
           </div>

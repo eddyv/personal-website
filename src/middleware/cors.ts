@@ -6,11 +6,10 @@ const getAllowedOrigin = (
   context: APIContext<Record<string, any>>,
 ) => {
   const origin = request.headers.get("Origin");
-  const siteOrigin = context.site ? new URL(context.site).origin : "";
+  const siteOrigin = context.site?.origin || "";
 
   // Local development
   if (import.meta.env.DEV) {
-    console.log("Local development cors activated");
     return origin || "";
   }
 

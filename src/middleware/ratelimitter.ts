@@ -87,7 +87,6 @@ const rateLimiter = new RateLimiter({
 
 export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   const { request } = context;
-  console.log(context.site);
 
   // Only apply rate limiting to the AI endpoint
   if (!request.url.includes("/api/")) {
