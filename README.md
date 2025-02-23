@@ -45,3 +45,13 @@ All commands are run from the root of the project:
 - [Tailwind CSS](https://tailwindcss.com)
 - [Cloudflare Pages](https://pages.cloudflare.com)
 - [Google Gemini](https://ai.google.dev/gemini-api/docs#node.js)
+
+## Demo
+
+### Desktop Example
+
+![Desktop](./images/desktop.png)
+
+### Mobile Example
+
+![Mobile](./images/mobile.png)
