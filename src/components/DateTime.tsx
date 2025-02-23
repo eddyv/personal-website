@@ -36,7 +36,7 @@ export default function DateTime(): JSX.Element {
   useEffect(() => {
     // Set initial window width in useEffect
     setWindowWidth(window.innerWidth);
-    
+
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);
