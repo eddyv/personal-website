@@ -9,13 +9,17 @@ import sitemap from "@astrojs/sitemap";
 
 import icon from "astro-icon";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://edwardvaisman.ca",
   trailingSlash: "never",
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   env: {
     schema: {
       GOOGLE_API_KEY: envField.string({ context: "server", access: "secret" }),
@@ -47,6 +51,7 @@ export default defineConfig({
       }),
     },
   },
+
   integrations: [
     react(),
     sitemap(),
@@ -56,5 +61,7 @@ export default defineConfig({
       },
     }),
   ],
+
   output: "server",
+  adapter: cloudflare(),
 });
