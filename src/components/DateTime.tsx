@@ -31,11 +31,12 @@ const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
  */
 export default function DateTime(): JSX.Element {
   const [time, setTime] = useState(new Date());
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0,
-  );
+  const [windowWidth, setWindowWidth] = useState(0); // Initialize with 0
 
   useEffect(() => {
+    // Set initial window width in useEffect
+    setWindowWidth(window.innerWidth);
+
     const timer = setInterval(() => {
       setTime(new Date());
     }, 1000);

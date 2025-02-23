@@ -47,8 +47,8 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
 
   return (
     <div className="fixed inset-x-0 bottom-30 top-20 mx-auto max-w-5xl px-2 sm:px-6 md:px-8">
-      <div className="h-full overflow-hidden rounded-lg bg-[#1C1C1C]/90 shadow-2xl">
-        <div className="flex h-10 items-center gap-2 rounded-t-lg bg-[#1c1c1c]/90 px-2 sm:px-4">
+      <div className="h-full overflow-hidden rounded-lg bg-[#1C1C1C] bg-opacity-90 shadow-2xl">
+        <div className="flex h-10 items-center gap-2 rounded-t-lg bg-[#1C1C1C] bg-opacity-90 px-2 sm:px-4">
           <div className="flex gap-2">
             <div className="size-3 rounded-full bg-[#FF5F56]"></div>
             <div className="size-3 rounded-full bg-[#FFBD2E]"></div>
