@@ -29,7 +29,7 @@ export default function DownloadLink({
       const key = shortcut?.toLowerCase().replace("⌘", "");
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === key) {
         event.preventDefault();
-        window.location.href = href;
+        window.open(href, "_blank", "noopener,noreferrer");
       }
     };
 
@@ -47,6 +47,8 @@ export default function DownloadLink({
       href={href}
       className="flex justify-between px-4 py-1 text-white/90 hover:bg-blue-500"
       onClick={handleClick}
+      target="_blank"
+      rel="noopener noreferrer"
     >
       <span>{label}</span>
       {shortcut && <span className="text-white/60">{shortcut}</span>}

@@ -65,7 +65,15 @@ export default defineConfig({
     sitemap(),
     icon({
       include: {
-        mdi: ["apple", "spotify", "github", "file-pdf-box", "console", "email"],
+        mdi: [
+          "apple",
+          "spotify",
+          "github",
+          "file-pdf-box",
+          "console",
+          "email",
+          "linkedin",
+        ],
       },
     }),
   ],
