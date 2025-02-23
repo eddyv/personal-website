@@ -23,9 +23,6 @@ export class RateLimiter {
     this.store = new Map();
     this.windowMs = config.windowMs;
     this.maxRequests = config.maxRequests;
-
-    // Cleanup old entries every minute
-    setInterval(() => this.cleanup(), 60 * 1000);
   }
 
   private cleanup(): void {
@@ -38,6 +35,8 @@ export class RateLimiter {
   }
 
   public isRateLimited(identifier: string): boolean {
+    this.cleanup();
+
     const now = Date.now();
     const info = this.store.get(identifier);
 
@@ -80,12 +79,18 @@ export class RateLimiter {
   }
 }
 
-const rateLimiter = new RateLimiter({
-  windowMs: RATE_LIMITER_WINDOW_MS,
-  maxRequests: RATE_LIMITER_MAX_REQUESTS_PER_WINDOW,
-});
+// Create the instance within a let so we can reuse it across requests
+let rateLimiter: RateLimiter | null = null;
 
 export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
+  // Initialize the rate limiter on first use
+  if (!rateLimiter) {
+    rateLimiter = new RateLimiter({
+      windowMs: RATE_LIMITER_WINDOW_MS,
+      maxRequests: RATE_LIMITER_MAX_REQUESTS_PER_WINDOW,
+    });
+  }
+
   const { request } = context;
 
   // Only apply rate limiting to the AI endpoint
