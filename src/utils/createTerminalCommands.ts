@@ -22,6 +22,16 @@ Want to get in touch?
 Email: vaismanedward@gmail.com
 Github: https://github.com/eddyv`;
 
+/**
+ * Generates a help message for the terminal interface.
+ * If a specific command is provided, it returns detailed help for that command.
+ * Otherwise, it returns a general help message listing all available commands.
+ *
+ * @param commands - An object mapping command strings to Command objects
+ * @param command - Optional command string to get specific help for (with or without leading slash)
+ * @returns A formatted help message string
+ *
+ */
 const generateHelpMessage = (
   commands: Record<string, Command>,
   command?: string,
@@ -47,6 +57,25 @@ ${Object.entries(commands)
 Type "/help <command>" for more information about a specific command.`;
 };
 
+/**
+ * Creates and returns a record of terminal commands with their respective handlers and metadata.
+ *
+ * @param options - The command factory options
+ * @param options.setHistory - A function to update the terminal history
+ *
+ * @returns A record object where keys are command strings (e.g., "/help") and values are Command objects
+ * containing the following properties:
+ * - description: A brief description of what the command does
+ * - argsHint?: Optional array of argument suggestions
+ * - helpText: Detailed usage instructions for the command
+ * - handle: Function that executes the command logic
+ *
+ * Available commands:
+ * - /help: Shows available commands and their descriptions
+ * - /clear: Clears the terminal screen
+ * - /ai: Interacts with an LLM to answer questions about the author
+ * - /whoami: Displays information about Edward Vaisman
+ */
 export const createTerminalCommands = ({
   setHistory,
 }: CommandFactoryOptions): Record<string, Command> => {

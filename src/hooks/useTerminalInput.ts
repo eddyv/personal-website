@@ -1,5 +1,24 @@
 import { useState, useCallback, type KeyboardEvent } from "react";
 
+/**
+ * A custom hook that manages terminal input state and command history navigation.
+ *
+ * @param commandHistory - An array of previously executed commands
+ * @param onExecuteCommand - Callback function to execute when Enter key is pressed
+ * @param isExecuting - Boolean flag indicating if a command is currently executing
+ *
+ * @returns An object containing:
+ * - input: The current input value
+ * - setInput: Function to update the input value
+ * - handleKeyDown: Event handler for keyboard interactions
+ *
+ * @remarks
+ * This hook provides the following functionality:
+ * - Enter key executes the current command
+ * - Arrow Up navigates to previous commands in history
+ * - Arrow Down navigates to more recent commands in history
+ * - Prevents command execution while another command is running
+ */
 export const useTerminalInput = (
   commandHistory: string[],
   onExecuteCommand: (cmd: string) => void,

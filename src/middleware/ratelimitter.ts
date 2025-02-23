@@ -82,6 +82,27 @@ export class RateLimiter {
 // Create the instance within a let so we can reuse it across requests
 let rateLimiter: RateLimiter | null = null;
 
+/**
+ * Middleware for rate limiting API requests.
+ *
+ * This middleware implements rate limiting functionality for API endpoints using both client ID and IP address
+ * for identification. It tracks request counts within configured time windows and enforces rate limits
+ * by returning 429 status codes when limits are exceeded.
+ *
+ * @param context - The middleware context containing the request object
+ * @param next - The function to call the next middleware in the chain
+ * @returns A Response object with appropriate status and headers
+ *
+ * Rate limit information is included in the following response headers:
+ * - X-RateLimit-Remaining: Number of requests remaining in the current window
+ * - X-RateLimit-Reset: Timestamp when the rate limit window resets
+ * - Retry-After: Number of seconds until the rate limit resets
+ *
+ * When rate limit is exceeded, returns a 429 response with JSON body containing:
+ * - error: Error message
+ * - resetTime: Timestamp when the rate limit resets
+ * - remainingRequests: Always 0 when limited
+ */
 export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   // Initialize the rate limiter on first use
   if (!rateLimiter) {

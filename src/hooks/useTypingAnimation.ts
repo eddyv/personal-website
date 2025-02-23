@@ -1,6 +1,15 @@
 import type { Command } from "@utils/createTerminalCommands";
 import { useState, useEffect, useMemo } from "react";
 
+/**
+ * A custom hook that creates a typing animation effect for a series of commands.
+ * The hook cycles through different commands and their hints, creating a typewriter-like animation.
+ *
+ * @param demoCommands - An object containing Command objects keyed by command names.
+ * Each Command object can contain an optional argsHint string array for different argument variations.
+ *
+ * @returns A string representing the current state of the typing animation.
+ */
 export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
   const [text, setText] = useState("");
   const [commandIndex, setCommandIndex] = useState(0);

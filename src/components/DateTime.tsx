@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 
 const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
   short: {
@@ -16,7 +16,20 @@ const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
   },
 };
 
-export default function DateTime() {
+/**
+ * A React component that displays the current date and time with responsive formatting.
+ * The format changes based on the window width:
+ * - < 640px: short format
+ * - < 768px: medium format
+ * - ≥ 768px: full format
+ *
+ * The time updates every second and the component automatically adjusts to window resize events.
+ *
+ * @returns {JSX.Element} A span element containing the formatted date and time
+ * @example
+ * <DateTime />
+ */
+export default function DateTime(): JSX.Element {
   const [time, setTime] = useState(new Date());
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 0,

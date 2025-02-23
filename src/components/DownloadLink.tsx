@@ -6,6 +6,17 @@ interface DownloadLinkProps {
   shortcut?: string;
 }
 
+/**
+ * A component that renders a download link with optional keyboard shortcut functionality.
+ *
+ * @component
+ * @param {Object} props - The component props
+ * @param {string} props.href - The URL that the link points to
+ * @param {string} props.label - The text content of the link
+ * @param {string} [props.shortcut] - Optional keyboard shortcut (e.g., "⌘S") that triggers the download when pressed
+ *
+ * @returns A styled anchor element with keyboard shortcut functionality
+ */
 export default function DownloadLink({
   href,
   label,
