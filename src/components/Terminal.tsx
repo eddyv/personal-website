@@ -47,15 +47,17 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
 
   return (
     <div className="fixed inset-x-0 bottom-30 top-20 mx-auto max-w-5xl px-2 sm:px-6 md:px-8">
-      <div className="h-full overflow-hidden rounded-lg bg-[#1C1C1C] bg-opacity-90 shadow-2xl">
-        <div className="flex h-10 items-center gap-2 rounded-t-lg bg-[#1C1C1C] bg-opacity-90 px-2 sm:px-4">
-          <div className="flex gap-2">
+      <div className="h-full overflow-hidden rounded-lg bg-[rgba(28,28,28,0.85)] shadow-2xl">
+        <div className="relative flex h-10 items-center rounded-t-lg bg-[rgba(28,28,28,0.85)] px-2 sm:px-4">
+          <div className="absolute left-2 sm:left-4 flex gap-2">
             <div className="size-3 rounded-full bg-[#FF5F56]"></div>
             <div className="size-3 rounded-full bg-[#FFBD2E]"></div>
             <div className="size-3 rounded-full bg-[#27C93F]"></div>
           </div>
-          <div className="flex-1 text-center">
-            <span className="text-sm text-white/60">terminal</span>
+          <div className="flex-1">
+            <span className="block text-center text-sm text-white/60">
+              👨‍💻 - edwardvaisman.ca
+            </span>
           </div>
         </div>
 
