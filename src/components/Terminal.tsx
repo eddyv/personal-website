@@ -46,9 +46,9 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
   }, [history]);
 
   return (
-    <div className="fixed inset-x-0 bottom-30 top-20 mx-auto max-w-5xl px-4 sm:px-6 md:px-8">
+    <div className="fixed inset-x-0 bottom-30 top-20 mx-auto max-w-5xl px-2 sm:px-6 md:px-8">
       <div className="h-full overflow-hidden rounded-lg bg-[#1C1C1C]/90 shadow-2xl">
-        <div className="flex h-10 items-center gap-2 rounded-t-lg bg-[#1c1c1c]/90 px-4">
+        <div className="flex h-10 items-center gap-2 rounded-t-lg bg-[#1c1c1c]/90 px-2 sm:px-4">
           <div className="flex gap-2">
             <div className="size-3 rounded-full bg-[#FF5F56]"></div>
             <div className="size-3 rounded-full bg-[#FFBD2E]"></div>
@@ -62,25 +62,30 @@ const Terminal: React.FC<Props> = ({ initialText = [initText] }) => {
         <div className="flex h-[calc(100%-5rem)] flex-col">
           <div
             ref={terminalRef}
-            className="flex-1 overflow-auto p-4 font-mono text-sm text-white/90"
+            className="flex-1 overflow-auto p-2 sm:p-4 font-mono text-sm text-white/90"
           >
             {history.map((line, i) => (
-              <div key={i} className="mb-1 leading-relaxed whitespace-pre-wrap">
+              <div
+                key={i}
+                className="mb-1 leading-relaxed break-words whitespace-pre-wrap"
+              >
                 {line === "..." ? <LoadingDots /> : line}
               </div>
             ))}
           </div>
 
-          <div className="border-t border-white/10 pl-4 py-4">
+          <div className="border-t border-white/10 px-2 sm:pl-4 py-4">
             <div className="flex items-center font-mono text-sm">
-              <div className="flex items-center gap-2">{renderPrompt()}</div>
+              <div className="flex-shrink-0 flex items-center gap-2">
+                {renderPrompt()}
+              </div>
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="ml-2 flex-1 bg-transparent outline-none text-white/90"
+                className="ml-2 w-full min-w-0 bg-transparent outline-none text-white/90"
                 autoFocus
                 placeholder={
                   isExecuting ? "Command executing..." : typingAnimation
