@@ -39,12 +39,12 @@ export default defineConfig({
         access: "secret",
         default: 1000 * 60 * 60,
       }),
-      RATE_LIMITTER_WINDOW_MS: envField.number({
+      RATE_LIMITER_WINDOW_MS: envField.number({
         context: "server",
         access: "secret",
         default: 15 * 60 * 1000,
       }),
-      RATE_LIMITTER_MAX_REQUESTS_PER_WINDOW: envField.number({
+      RATE_LIMITER_MAX_REQUESTS_PER_WINDOW: envField.number({
         context: "server",
         access: "secret",
         default: 100,

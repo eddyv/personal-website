@@ -1,6 +1,6 @@
 import {
-  RATE_LIMITTER_MAX_REQUESTS_PER_WINDOW,
-  RATE_LIMITTER_WINDOW_MS,
+  RATE_LIMITER_MAX_REQUESTS_PER_WINDOW,
+  RATE_LIMITER_WINDOW_MS,
 } from "astro:env/server";
 import { defineMiddleware } from "astro:middleware";
 
@@ -81,8 +81,8 @@ export class RateLimiter {
 }
 
 const rateLimiter = new RateLimiter({
-  windowMs: RATE_LIMITTER_WINDOW_MS,
-  maxRequests: RATE_LIMITTER_MAX_REQUESTS_PER_WINDOW,
+  windowMs: RATE_LIMITER_WINDOW_MS,
+  maxRequests: RATE_LIMITER_MAX_REQUESTS_PER_WINDOW,
 });
 
 export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
