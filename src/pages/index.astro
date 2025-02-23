@@ -1,0 +1,23 @@
+---
+import Background from "@components/Background.astro";
+import Layout from "@layouts/Layout.astro";
+import Dock from "@components/Dock.astro";
+import type { ImageMetadata } from "astro";
+
+// Get all wallpapers using import.meta.glob
+const wallpaperModules = Object.values(
+  import.meta.glob<{ default: ImageMetadata }>(
+    "/src/assets/wallpapers/*.{jpeg,jpg,png,gif}",
+  ),
+);
+
+// Select and load random wallpaper
+const randomModule =
+  wallpaperModules[Math.floor(Math.random() * wallpaperModules.length)];
+const { default: randomWallpaper } = await randomModule();
+---
+
+<Layout backgroundImage={randomWallpaper.src}>
+  <Background src={randomWallpaper} />
+  <Dock />
+</Layout>
