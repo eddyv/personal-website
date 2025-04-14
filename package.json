@@ -17,7 +17,7 @@
     "@astrojs/react": "^4.2.0",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/dancing-script": "^5.1.1",
-    "@fontsource/ibm-plex-mono": "^5.1.1",
+    "@fontsource/ibm-plex-mono": "^5.2.5",
     "@fontsource/ibm-plex-sans": "^5.1.1",
     "@google/generative-ai": "^0.24.0",
     "@tailwindcss/vite": "^4.0.8",
