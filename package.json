@@ -13,7 +13,7 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.2.1",
+    "@astrojs/cloudflare": "^12.5.4",
     "@astrojs/react": "^4.2.0",
     "@astrojs/sitemap": "^3.2.1",
     "@fontsource-variable/dancing-script": "^5.1.1",
