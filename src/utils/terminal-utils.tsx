@@ -14,24 +14,24 @@ import type { JSX } from "react";
  *  - Mobile: Shows shortened username "ev" and path "~/web"
  *  - Desktop: Shows full username "edwardvaisman" and path "~/public_html"
  */
-export const renderPrompt = (cmd: string = ""): JSX.Element[] => {
+export const renderPrompt = (cmd = ""): JSX.Element[] => {
   return [
-    <span key="user" className="text-cyan-400">
+    <span className="text-cyan-400" key="user">
       <span className="hidden sm:inline">edwardvaisman</span>
       <span className="sm:hidden">ev</span>
     </span>,
-    <span key="in" className="text-white/90">
+    <span className="text-white/90" key="in">
       {" "}
       in{" "}
     </span>,
-    <span key="path" className="text-green-400">
+    <span className="text-green-400" key="path">
       <span className="hidden sm:inline">~/public_html</span>
       <span className="sm:hidden">~/web</span>{" "}
     </span>,
-    <span key="lambda" className="text-yellow-400">
+    <span className="text-yellow-400" key="lambda">
       λ{" "}
     </span>,
-    <span key="cmd" className="text-white/90">
+    <span className="text-white/90" key="cmd">
       {cmd}
     </span>,
   ];

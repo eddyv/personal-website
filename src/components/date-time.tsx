@@ -1,4 +1,4 @@
-import { useEffect, useState, type JSX } from "react";
+import { type JSX, useEffect, useState } from "react";
 
 const formatOptions: Record<string, Intl.DateTimeFormatOptions> = {
   short: {
@@ -54,8 +54,12 @@ export default function DateTime(): JSX.Element {
   }, []);
 
   const getFormat = () => {
-    if (windowWidth < 640) return formatOptions.short;
-    if (windowWidth < 768) return formatOptions.medium;
+    if (windowWidth < 640) {
+      return formatOptions.short;
+    }
+    if (windowWidth < 768) {
+      return formatOptions.medium;
+    }
     return formatOptions.full;
   };
 

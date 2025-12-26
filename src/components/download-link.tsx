@@ -23,7 +23,9 @@ export default function DownloadLink({
   shortcut,
 }: DownloadLinkProps) {
   useEffect(() => {
-    if (!shortcut) return;
+    if (!shortcut) {
+      return;
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       const key = shortcut?.toLowerCase().replace("⌘", "");
@@ -44,11 +46,11 @@ export default function DownloadLink({
 
   return (
     <a
-      href={href}
       className="flex justify-between px-4 py-1 text-white/90 hover:bg-blue-500"
+      href={href}
       onClick={handleClick}
-      target="_blank"
       rel="noopener noreferrer"
+      target="_blank"
     >
       <span>{label}</span>
       {shortcut && <span className="text-white/60">{shortcut}</span>}

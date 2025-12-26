@@ -1,5 +1,5 @@
 ---
-import DownloadLink from "@components/DownloadLink";
+import DownloadLink from "@components/download-link";
 
 interface Props {
   items: {
@@ -13,7 +13,7 @@ const { items } = Astro.props;
 ---
 
 <div
-  class="dropdown-menu invisible absolute top-6 -ml-2 min-w-[160px] rounded-lg bg-black/80 py-1 opacity-0 backdrop-blur-xl transition-all group-hover:visible group-hover:opacity-100 sm:min-w-[200px]"
+  class="dropdown-menu invisible absolute top-6 -ml-2 min-w-40 rounded-lg bg-black/80 py-1 opacity-0 backdrop-blur-xl transition-all group-hover:visible group-hover:opacity-100 sm:min-w-[200px]"
 >
   {
     items.map((item) =>

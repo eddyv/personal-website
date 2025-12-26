@@ -1,4 +1,4 @@
 import { sequence } from "astro:middleware";
-import { rateLimiterMiddleware } from "@middleware/ratelimitter";
 import { corsMiddleware } from "@middleware/cors";
+import { rateLimiterMiddleware } from "@middleware/rate-limitter";
 export const onRequest = sequence(corsMiddleware, rateLimiterMiddleware);

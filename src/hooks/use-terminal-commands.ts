@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { renderPrompt } from "@utils/terminalUtils";
 import {
-  createTerminalCommands,
   type CommandOutput,
-} from "@utils/createTerminalCommands";
+  createTerminalCommands,
+} from "@utils/create-terminal-commands";
+import { renderPrompt } from "@utils/terminal-utils";
+import { useState } from "react";
 
 /**
  * Custom hook for managing terminal commands and their execution.
  *
+ * @param initialText - Optional initial text to display in the terminal history
  * @returns An object containing:
  * - commands: Object containing all available terminal commands
  * - history: Array of command outputs and prompts
@@ -23,8 +24,8 @@ import {
  * Each command execution updates the history with the command prompt and its output,
  * while also maintaining a separate history of executed commands.
  */
-export const useTerminalCommands = () => {
-  const [history, setHistory] = useState<CommandOutput[]>([]);
+export const useTerminalCommands = (initialText: CommandOutput[] = []) => {
+  const [history, setHistory] = useState<CommandOutput[]>(initialText);
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
   const [isExecuting, setIsExecuting] = useState(false);
 
@@ -32,7 +33,7 @@ export const useTerminalCommands = () => {
 
   const updateHistoryAndExecute = async (
     input: string,
-    handler: () => Promise<CommandOutput>,
+    handler: () => Promise<CommandOutput>
   ) => {
     setHistory((prev) => [...prev, renderPrompt(input), "..."]);
     setCommandHistory((prev) => [...prev, input]);
@@ -41,17 +42,17 @@ export const useTerminalCommands = () => {
     const output = await handler();
 
     setHistory((prev) =>
-      prev[prev.length - 1] === "..."
-        ? [...prev.slice(0, -1), output]
-        : [...prev, output],
+      prev.at(-1) === "..." ? [...prev.slice(0, -1), output] : [...prev, output]
     );
     setIsExecuting(false);
     return output;
   };
 
-  const executeCommand = async (input: string) => {
+  const executeCommand = (input: string) => {
     const trimmedInput = input.trim();
-    if (!trimmedInput) return;
+    if (!trimmedInput) {
+      return;
+    }
 
     const [firstWord, ...args] = trimmedInput.toLowerCase().split(" ");
 
@@ -60,13 +61,13 @@ export const useTerminalCommands = () => {
         commands[firstWord]
           ? commands[firstWord].handle(args)
           : Promise.resolve(
-              `Command not found: ${firstWord}. Type '/help' for available commands.`,
-            ),
+              `Command not found: ${firstWord}. Type '/help' for available commands.`
+            )
       );
     }
 
     return updateHistoryAndExecute(input, async () =>
-      commands["/ai"].handle([trimmedInput]),
+      commands["/ai"].handle([trimmedInput])
     );
   };
 

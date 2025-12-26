@@ -5,15 +5,13 @@ export const LoadingDots: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDots((prev) => (prev.length >= 3 ? "" : prev + "."));
+      setDots((prev) => (prev.length >= 3 ? "" : `${prev}.`));
     }, 200);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <span className="text-white/90 inline-block min-w-[24px]">
-      {dots || "."}
-    </span>
+    <span className="inline-block min-w-6 text-white/90">{dots || "."}</span>
   );
 };

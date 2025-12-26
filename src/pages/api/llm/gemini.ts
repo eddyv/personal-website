@@ -1,11 +1,11 @@
-import type { APIRoute } from "astro";
-import { GoogleGenerativeAI, type InlineDataPart } from "@google/generative-ai";
 import {
   GOOGLE_AI_MODEL_ID,
   GOOGLE_API_KEY,
   RESUME_CACHE_DURATION,
   RESUME_URL,
 } from "astro:env/server";
+import { GoogleGenAI } from "@google/genai";
+import type { APIRoute } from "astro";
 
 interface RequestBody {
   message: string;
@@ -16,7 +16,7 @@ export interface AIResponseBody {
   error?: string;
 }
 
-const genAI = new GoogleGenerativeAI(GOOGLE_API_KEY);
+const ai = new GoogleGenAI({ apiKey: GOOGLE_API_KEY });
 /**
  * System instructions for Edward Vaisman's AI personal assistant.
  * These instructions configure the AI to:
@@ -39,12 +39,8 @@ When addressing questions, prioritize professionalism while maintaining a light-
 
 Your responses should reflect a deep understanding of Edward's professional background and expertise, showcasing his strengths and accomplishments to potential employers. It's essential to convey his qualifications accurately and effectively to enhance his prospects in securing suitable employment opportunities. Make sure to always paint him in a positive light.`;
 
-const model = genAI.getGenerativeModel({
-  model: GOOGLE_AI_MODEL_ID,
-  systemInstruction: systemInstructions,
-});
-
-let cachedResume: InlineDataPart | null = null;
+// A cached base64 string encoding of the resume PDF
+let cachedResume: string | null = null;
 let lastCached: number | null = null;
 
 /**
@@ -53,28 +49,22 @@ let lastCached: number | null = null;
  * Otherwise, downloads the resume, converts it to base64, and caches it.
  *
  * @param url - The URL of the resume to download
- * @returns A Promise that resolves to an InlineDataPart containing the base64-encoded PDF
+ * @returns A base64 encoded string of the resume PDF
  * @throws {Error} If the fetch request fails
  */
-const downloadResume = async (url: string): Promise<InlineDataPart> => {
+const downloadResume = async (url: string): Promise<string> => {
   const now: number = Date.now();
   if (cachedResume && lastCached && now - lastCached < RESUME_CACHE_DURATION) {
     return cachedResume;
   }
 
-  const res: Response = await fetch(url);
-  const buffer: ArrayBuffer = await res.arrayBuffer();
-  const base64Data: string = Buffer.from(buffer).toString("base64");
+  const pdfResponse: ArrayBuffer = await fetch(url).then((response) =>
+    response.arrayBuffer()
+  );
   lastCached = now;
 
-  const inlineData: InlineDataPart = {
-    inlineData: {
-      data: base64Data,
-      mimeType: "application/pdf",
-    },
-  };
-  cachedResume = inlineData;
-  return inlineData;
+  cachedResume = Buffer.from(pdfResponse).toString("base64");
+  return cachedResume;
 };
 
 /**
@@ -108,12 +98,24 @@ export const POST: APIRoute = async ({
 }): Promise<Response> => {
   try {
     const { message }: RequestBody = await request.json();
-    const resumeData: InlineDataPart = await downloadResume(RESUME_URL);
-    const result: string = (
-      await model.generateContent([message, resumeData])
-    ).response.text();
+    const resumeData: string = await downloadResume(RESUME_URL);
 
-    const responseBody: AIResponseBody = { response: result };
+    const response = await ai.models.generateContent({
+      model: GOOGLE_AI_MODEL_ID,
+      contents: [
+        {
+          inlineData: {
+            mimeType: "application/pdf",
+            data: resumeData,
+          },
+        },
+        message,
+      ],
+      config: {
+        systemInstruction: systemInstructions,
+      },
+    });
+    const responseBody: AIResponseBody = { response: response.text };
     return new Response(JSON.stringify(responseBody), {
       status: 200,
       headers: {

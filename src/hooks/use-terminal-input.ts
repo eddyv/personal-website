@@ -1,4 +1,4 @@
-import { useState, useCallback, type KeyboardEvent } from "react";
+import { type KeyboardEvent, useCallback, useState } from "react";
 
 /**
  * A custom hook that manages terminal input state and command history navigation.
@@ -22,7 +22,7 @@ import { useState, useCallback, type KeyboardEvent } from "react";
 export const useTerminalInput = (
   commandHistory: string[],
   onExecuteCommand: (cmd: string) => void,
-  isExecuting: boolean,
+  isExecuting: boolean
 ) => {
   const [input, setInput] = useState("");
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -46,9 +46,7 @@ export const useTerminalInput = (
           if (historyIndex < commandHistory.length - 1) {
             const newIndex = historyIndex + 1;
             setHistoryIndex(newIndex);
-            setInput(
-              commandHistory[commandHistory.length - 1 - newIndex] || "",
-            );
+            setInput(commandHistory.at(1 + newIndex) || "");
           }
           break;
         case "ArrowDown":
@@ -56,17 +54,17 @@ export const useTerminalInput = (
           if (historyIndex > 0) {
             const newIndex = historyIndex - 1;
             setHistoryIndex(newIndex);
-            setInput(
-              commandHistory[commandHistory.length - 1 - newIndex] || "",
-            );
+            setInput(commandHistory.at(1 + newIndex) || "");
           } else {
             setHistoryIndex(-1);
             setInput("");
           }
           break;
+        default:
+          break;
       }
     },
-    [historyIndex, commandHistory, input, onExecuteCommand, isExecuting],
+    [historyIndex, commandHistory, input, onExecuteCommand, isExecuting]
   );
 
   return {

@@ -1,10 +1,7 @@
-import type { APIContext } from "astro";
 import { defineMiddleware } from "astro:middleware";
+import type { APIContext } from "astro";
 
-const getAllowedOrigin = (
-  request: Request,
-  context: APIContext<Record<string, any>>,
-) => {
+const getAllowedOrigin = (request: Request, context: APIContext) => {
   const origin = request.headers.get("Origin");
   const siteOrigin = context.site?.origin || "";
 
@@ -36,12 +33,12 @@ export const corsMiddleware = defineMiddleware(async (context, next) => {
   const allowedOrigin = getAllowedOrigin(context.request, context);
 
   if (request.method === "OPTIONS") {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append("Access-Control-Allow-Origin", allowedOrigin);
     headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
     headers.append(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept",
+      "Origin, X-Requested-With, Content-Type, Accept"
     );
     return new Response(null, { headers });
   }
@@ -53,11 +50,11 @@ export const corsMiddleware = defineMiddleware(async (context, next) => {
   headers.append("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   headers.append(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
 
   return new Response(response.body, {
     ...response,
-    headers: headers,
+    headers,
   });
 });
