@@ -18,6 +18,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "verbatimModuleSyntax": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true
   }
 }
