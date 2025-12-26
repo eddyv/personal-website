@@ -17,6 +17,8 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "verbatimModuleSyntax": true
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true
   }
 }

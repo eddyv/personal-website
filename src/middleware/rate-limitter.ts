@@ -15,9 +15,9 @@ interface RateLimitInfo {
 }
 
 export class RateLimiter {
-  private store: Map<string, RateLimitInfo>;
-  private windowMs: number;
-  private maxRequests: number;
+  private readonly store: Map<string, RateLimitInfo>;
+  private readonly windowMs: number;
+  private readonly maxRequests: number;
 
   constructor(config: RateLimitConfig) {
     this.store = new Map();
@@ -34,7 +34,7 @@ export class RateLimiter {
     }
   }
 
-  public isRateLimited(identifier: string): boolean {
+  isRateLimited(identifier: string): boolean {
     this.cleanup();
 
     const now = Date.now();
@@ -65,16 +65,16 @@ export class RateLimiter {
     return false;
   }
 
-  public getRateLimitInfo(identifier: string): {
+  getRateLimitInfo(identifier: string): {
     remaining: number;
-    resetTime: number | null;
+    resetTime: number;
   } {
     const info = this.store.get(identifier);
     return {
       remaining: info
         ? Math.max(0, this.maxRequests - info.count)
         : this.maxRequests,
-      resetTime: info?.resetTime || null,
+      resetTime: info?.resetTime || 0,
     };
   }
 }
@@ -144,7 +144,7 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   headers.set("X-RateLimit-Reset", resetTime?.toString() || "");
   headers.set(
     "Retry-After",
-    Math.ceil((resetTime! - Date.now()) / 1000).toString(),
+    Math.ceil((resetTime - Date.now()) / 1000).toString()
   );
 
   if (isLimited) {
@@ -159,10 +159,10 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
         headers: {
           "Content-Type": "application/json",
           "X-RateLimit-Remaining": "0",
-          "X-RateLimit-Reset": resetTime?.toString() || "",
-          "Retry-After": Math.ceil((resetTime! - Date.now()) / 1000).toString(),
+          "X-RateLimit-Reset": resetTime.toString(),
+          "Retry-After": Math.ceil((resetTime - Date.now()) / 1000).toString(),
         },
-      },
+      }
     );
   }
 

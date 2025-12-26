@@ -1,18 +1,18 @@
 import type { AIResponseBody } from "@pages/api/llm/gemini";
-import { generateClientId } from "@utils/generateClientId";
+import { generateClientId } from "@utils/generate-client-id";
 
 export type CommandOutput = string | React.ReactNode;
 
-export type Command = {
+export interface Command {
   description: string;
   argsHint?: string[];
   helpText?: string;
   handle: (args?: string[]) => CommandOutput;
-};
+}
 
-export type CommandFactoryOptions = {
+export interface CommandFactoryOptions {
   setHistory: (history: CommandOutput[]) => void;
-};
+}
 
 const personalInfo = `Hi! I'm Edward Vaisman 👋
 Role: Software Developer
@@ -34,7 +34,7 @@ Github: https://github.com/eddyv`;
  */
 const generateHelpMessage = (
   commands: Record<string, Command>,
-  command?: string,
+  command?: string
 ): string => {
   if (command) {
     const cmdKey = command.startsWith("/") ? command : `/${command}`;
@@ -144,7 +144,7 @@ Example: /ai What are your technical skills?`,
         } catch (error) {
           console.error(
             "An error occurred while processing the request:",
-            error,
+            error
           );
           return "Sorry, there was an error processing your request.";
         }
@@ -152,7 +152,7 @@ Example: /ai What are your technical skills?`,
     },
     "/whoami": {
       description: "Display information about Edward Vaisman",
-      helpText: `Usage: /whoami`,
+      helpText: "Usage: /whoami",
       handle: () => personalInfo,
     },
   };

@@ -1,5 +1,5 @@
-import type { Command } from "@utils/createTerminalCommands";
-import { useState, useEffect, useMemo } from "react";
+import type { Command } from "@utils/create-terminal-commands";
+import { useEffect, useMemo, useState } from "react";
 
 /**
  * A custom hook that creates a typing animation effect for a series of commands.
@@ -25,7 +25,7 @@ export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
           hints: hints.map((hint) => `${key} ${hint}`.trim()),
         };
       }),
-    [demoCommands],
+    [demoCommands]
   );
 
   const currentCommand = commandEntries[commandIndex % commandEntries.length];
@@ -33,7 +33,9 @@ export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
     currentCommand.hints[hintIndex % currentCommand.hints.length];
 
   useEffect(() => {
-    const delay = isTyping ? 150 : text.length === 0 ? 500 : 50;
+    const isEmptyText = text.length === 0;
+    const deletionDelay = isEmptyText ? 500 : 50;
+    const delay = isTyping ? 150 : deletionDelay;
 
     const timer = setTimeout(() => {
       if (isTyping) {
@@ -42,19 +44,18 @@ export const useTypingAnimation = (demoCommands: Record<string, Command>) => {
         } else {
           setIsTyping(false);
         }
-      } else {
-        if (text.length === 0) {
-          // Cycle through hints first, then move to next command
-          if (hintIndex + 1 < currentCommand.hints.length) {
-            setHintIndex((i) => i + 1);
-          } else {
-            setHintIndex(0);
-            setCommandIndex((i) => i + 1);
+      } else if (text.length === 0) {
+        // Cycle through hints first, then move to next command
+        setHintIndex((prevHintIndex) => {
+          if (prevHintIndex + 1 < currentCommand.hints.length) {
+            return prevHintIndex + 1;
           }
-          setIsTyping(true);
-        } else {
-          setText(text.slice(0, -1));
-        }
+          setCommandIndex((i) => i + 1);
+          return 0;
+        });
+        setIsTyping(true);
+      } else {
+        setText(text.slice(0, -1));
       }
     }, delay);
 
