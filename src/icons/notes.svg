@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="notesBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FED255"/>
+      <stop offset="100%" style="stop-color:#F9A825"/>
+    </linearGradient>
+    <linearGradient id="notesLines" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8B923"/>
+      <stop offset="100%" style="stop-color:#D4921A"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded square -->
+  <rect x="8" y="8" width="104" height="104" rx="22" ry="22" fill="url(#notesBg)"/>
+  <!-- Paper sheet -->
+  <rect x="22" y="28" width="76" height="70" rx="4" ry="4" fill="#FFFEF5" opacity="0.95"/>
+  <!-- Lines on paper -->
+  <line x1="28" y1="44" x2="92" y2="44" stroke="url(#notesLines)" stroke-width="1.5" opacity="0.4"/>
+  <line x1="28" y1="56" x2="92" y2="56" stroke="url(#notesLines)" stroke-width="1.5" opacity="0.4"/>
+  <line x1="28" y1="68" x2="92" y2="68" stroke="url(#notesLines)" stroke-width="1.5" opacity="0.4"/>
+  <line x1="28" y1="80" x2="92" y2="80" stroke="url(#notesLines)" stroke-width="1.5" opacity="0.4"/>
+  <!-- Simulated text lines -->
+  <rect x="28" y="40" width="40" height="3" rx="1.5" fill="#333" opacity="0.7"/>
+  <rect x="28" y="52" width="55" height="3" rx="1.5" fill="#333" opacity="0.4"/>
+  <rect x="28" y="64" width="48" height="3" rx="1.5" fill="#333" opacity="0.4"/>
+  <rect x="28" y="76" width="35" height="3" rx="1.5" fill="#333" opacity="0.4"/>
+</svg>

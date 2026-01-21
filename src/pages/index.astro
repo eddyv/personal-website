@@ -1,6 +1,8 @@
 ---
+import { getCollection, render } from "astro:content";
 import Background from "@components/background.astro";
 import Dock from "@components/dock.astro";
+import { NotesApp } from "@components/notes-app";
 import Layout from "@layouts/layout.astro";
 import type { ImageMetadata } from "astro";
 
@@ -15,9 +17,73 @@ const wallpaperModules = Object.values(
 const randomModule =
   wallpaperModules[Math.floor(Math.random() * wallpaperModules.length)];
 const { default: randomWallpaper } = await randomModule();
+
+// Get blog posts for Notes app
+const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
+
+// Sort by date descending
+const sortedPosts = blogPosts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+// Prepare posts metadata for client (content will be hydrated from hidden divs)
+const postsForClient = sortedPosts.map((post) => ({
+  slug: post.id,
+  title: post.data.title,
+  date: post.data.date.toISOString(),
+  preview: post.data.preview,
+  tags: post.data.tags,
+  content: "", // Will be hydrated client-side
+}));
 ---
 
 <Layout backgroundImage={randomWallpaper.src}>
-  <Background src={randomWallpaper}/>
-  <Dock/>
+  <Background src={randomWallpaper} />
+
+  <!-- Render blog content to hidden divs for client-side hydration -->
+  <div id="blog-content-store" class="hidden">
+    {sortedPosts.map(async (post) => {
+      const { Content } = await render(post);
+      return (
+        <div data-slug={post.id}>
+          <Content />
+        </div>
+      );
+    })}
+  </div>
+
+  <NotesApp client:load posts={postsForClient} />
+  <Dock />
 </Layout>
+
+<script>
+  // Hydrate blog content into the NotesApp after DOM is ready
+  const hydrateContent = () => {
+    const store = document.getElementById("blog-content-store");
+    if (!store) {
+      return;
+    }
+
+    const contentMap: Record<string, string> = {};
+    for (const div of store.querySelectorAll("[data-slug]")) {
+      const slug = div.getAttribute("data-slug");
+      if (slug) {
+        contentMap[slug] = div.innerHTML;
+      }
+    }
+
+    // Dispatch event with content
+    window.dispatchEvent(
+      new CustomEvent("blog-content-loaded", {
+        detail: contentMap,
+      })
+    );
+  };
+
+  // Run on load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hydrateContent);
+  } else {
+    hydrateContent();
+  }
+</script>

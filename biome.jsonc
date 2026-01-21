@@ -1,4 +1,14 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/core", "ultracite/astro", "ultracite/react"]
+  "extends": [
+    "ultracite/core",
+    "ultracite/astro",
+    "ultracite/react",
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/astro"
+  ],
+  "files": {
+    "includes": ["!dist", "!node_modules", "!.wrangler"]
+  }
 }
