@@ -19,6 +19,7 @@
     "jsxImportSource": "react",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "allowImportingTsExtensions": true
+    "allowImportingTsExtensions": true,
+    "strictNullChecks": true
   }
 }
