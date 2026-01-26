@@ -38,6 +38,6 @@
     "@tailwindcss/typography": "^0.5.19",
     "husky": "^9.1.7",
     "ultracite": "7.0.12",
-    "wrangler": "^4.59.3"
+    "wrangler": "^4.60.0"
   }
 }
