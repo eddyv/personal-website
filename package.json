@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.2.3",
     "astro": "^5.16.12",
     "astro-icon": "^1.1.5",
-    "astro-seo": "^0.8.4",
+    "astro-seo": "^1.1.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "tailwindcss": "^4.1.18"
