@@ -57,11 +57,8 @@ export function Window({
   }, [isOpen]);
 
   const handlePositionChange = useCallback(
-    (delta: { x: number; y: number }) => {
-      setPosition((prev) => ({
-        x: prev.x + delta.x,
-        y: prev.y + delta.y,
-      }));
+    (nextPosition: { x: number; y: number }) => {
+      setPosition(nextPosition);
     },
     []
   );
@@ -114,6 +111,7 @@ export function Window({
   );
 
   const { size, isResizing, handleResizeStart } = useWindowResize({
+    currentPosition: position,
     initialSize: defaultSize,
     minSize,
     onPositionChange: handlePositionChange,

@@ -15,7 +15,8 @@ type ResizeDirection = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw" | null;
 interface UseWindowResizeOptions {
   initialSize?: Size;
   minSize?: Size;
-  onPositionChange?: (delta: Position) => void;
+  currentPosition?: Position;
+  onPositionChange?: (position: Position) => void;
 }
 
 interface UseWindowResizeReturn {
@@ -33,6 +34,7 @@ export function useWindowResize(
   const {
     initialSize = { width: 800, height: 600 },
     minSize = { width: 400, height: 300 },
+    currentPosition = { x: 0, y: 0 },
     onPositionChange,
   } = options;
 
@@ -42,6 +44,7 @@ export function useWindowResize(
 
   const startPos = useRef<Position>({ x: 0, y: 0 });
   const startSize = useRef<Size>(initialSize);
+  const startWindowPosition = useRef<Position>(currentPosition);
 
   const handleResizeStart = useCallback(
     (direction: ResizeDirection) => (e: React.MouseEvent) => {
@@ -53,11 +56,12 @@ export function useWindowResize(
       setResizeDirection(direction);
       startPos.current = { x: e.clientX, y: e.clientY };
       startSize.current = { ...size };
+      startWindowPosition.current = { ...currentPosition };
 
       e.preventDefault();
       e.stopPropagation();
     },
-    [size]
+    [currentPosition, size]
   );
 
   useEffect(() => {
@@ -71,8 +75,7 @@ export function useWindowResize(
 
       let newWidth = startSize.current.width;
       let newHeight = startSize.current.height;
-      let positionDeltaX = 0;
-      let positionDeltaY = 0;
+      let nextPosition = startWindowPosition.current;
 
       // Handle horizontal resizing
       if (resizeDirection.includes("e")) {
@@ -83,7 +86,10 @@ export function useWindowResize(
           startSize.current.width - minSize.width
         );
         newWidth = startSize.current.width - widthChange;
-        positionDeltaX = widthChange;
+        nextPosition = {
+          ...nextPosition,
+          x: startWindowPosition.current.x + widthChange,
+        };
       }
 
       // Handle vertical resizing
@@ -95,14 +101,17 @@ export function useWindowResize(
           startSize.current.height - minSize.height
         );
         newHeight = startSize.current.height - heightChange;
-        positionDeltaY = heightChange;
+        nextPosition = {
+          ...nextPosition,
+          y: startWindowPosition.current.y + heightChange,
+        };
       }
 
       setSize({ width: newWidth, height: newHeight });
 
-      // Notify parent about position changes for north/west resizing
-      if ((positionDeltaX !== 0 || positionDeltaY !== 0) && onPositionChange) {
-        onPositionChange({ x: positionDeltaX, y: positionDeltaY });
+      // Notify parent about absolute position changes for north/west resizing
+      if (onPositionChange && nextPosition !== startWindowPosition.current) {
+        onPositionChange(nextPosition);
       }
     };
 
