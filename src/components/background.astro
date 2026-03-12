@@ -13,14 +13,14 @@ const { src, alt = "Background image" } = Astro.props;
 <div class="fixed inset-0 -z-10 bg-black">
   <div class="absolute inset-0 backdrop-blur-xl">
     <Picture
-      src={src}
       alt={alt}
       class="h-full w-full object-cover opacity-0 transition-opacity duration-700 ease-in"
       loading="eager"
-      priority={true}
-      widths={[640, 1280, 1920, 2560]}
-      sizes="100vw"
       onload="this.classList.remove('opacity-0')"
+      priority={true}
+      sizes="100vw"
+      src={src}
+      widths={[640, 1280, 1920, 2560]}
     />
   </div>
 </div>

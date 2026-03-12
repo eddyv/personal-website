@@ -6,6 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 import icon from "astro-icon";
+import svgr from "vite-plugin-svgr";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +14,7 @@ export default defineConfig({
   trailingSlash: "never",
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), svgr({ include: "**/*.svg?react" })],
     resolve: {
       // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
       // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
@@ -30,7 +31,7 @@ export default defineConfig({
       GOOGLE_AI_MODEL_ID: envField.string({
         context: "server",
         access: "secret",
-        default: "gemini-3-flash-preview",
+        default: "gemini-3.1-flash-lite-preview",
       }),
       RESUME_URL: envField.string({
         context: "server",

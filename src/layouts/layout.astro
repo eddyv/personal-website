@@ -1,7 +1,6 @@
 ---
 import "@styles/global.css";
 import Header from "@components/header.astro";
-import Terminal from "@components/terminal.tsx";
 import { SEO } from "astro-seo";
 
 interface Props {
@@ -51,7 +50,6 @@ const {
   </head>
   <body>
     <Header />
-    <Terminal client:load />
     <slot />
   </body>
 </html>
