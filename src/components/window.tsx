@@ -28,7 +28,7 @@ export function Window({
 }: WindowProps): React.ReactElement | null {
   const [isVisible, setIsVisible] = useState(false);
   const initializedRef = useRef(false);
-  const { handleMouseDown, isDragging, position, setPosition } =
+  const { handlePointerDown, isDragging, position, setPosition } =
     useWindowDrag();
 
   // Center window on first open
@@ -58,12 +58,12 @@ export function Window({
     [setPosition]
   );
 
-  const handleDragMouseDown = useCallback(
-    (e: React.MouseEvent) => {
+  const handleDragPointerDown = useCallback(
+    (e: React.PointerEvent) => {
       onFocus?.();
-      handleMouseDown(e);
+      handlePointerDown(e);
     },
-    [handleMouseDown, onFocus]
+    [handlePointerDown, onFocus]
   );
 
   const { size, isResizing, handleResizeStart } = useWindowResize({
@@ -73,9 +73,9 @@ export function Window({
     onPositionChange: handlePositionChange,
   });
 
-  const createResizeMouseDownHandler = useCallback(
+  const createResizePointerDownHandler = useCallback(
     (direction: "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw") =>
-      (e: React.MouseEvent) => {
+      (e: React.PointerEvent) => {
         onFocus?.();
         handleResizeStart(direction)(e);
       },
@@ -88,7 +88,7 @@ export function Window({
       className={`fixed overflow-hidden rounded-xl bg-[#1e1e1e] shadow-2xl transition-[opacity,transform,filter] duration-200 ${
         isVisible && isOpen ? "opacity-100" : "pointer-events-none opacity-0"
       } ${isDragging || isResizing ? "select-none" : ""}`}
-      onMouseDown={onFocus}
+      onPointerDown={onFocus}
       style={{
         left: position.x,
         top: position.y,
@@ -98,13 +98,11 @@ export function Window({
       }}
     >
       {/* Title bar */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window drag handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window drag handle */}
       <div
-        className={`relative flex h-12 cursor-grab items-center px-4 active:cursor-grabbing ${
+        className={`relative flex h-12 cursor-grab touch-none items-center px-4 active:cursor-grabbing ${
           isActive ? "bg-[#2a2a2a]" : "bg-[#252525]"
         }`}
-        onMouseDown={handleDragMouseDown}
+        onPointerDown={handleDragPointerDown}
       >
         {/* Traffic light buttons */}
         <div className="absolute left-4 flex gap-2">
@@ -142,60 +140,44 @@ export function Window({
 
       {/* Resize handles */}
       {/* Right edge */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute top-12 right-0 bottom-0 w-1 cursor-ew-resize"
-        onMouseDown={createResizeMouseDownHandler("e")}
+        className="absolute top-12 right-0 bottom-0 w-1 cursor-ew-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("e")}
       />
       {/* Bottom edge */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute right-0 bottom-0 left-0 h-1 cursor-ns-resize"
-        onMouseDown={createResizeMouseDownHandler("s")}
+        className="absolute right-0 bottom-0 left-0 h-1 cursor-ns-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("s")}
       />
       {/* Bottom-right corner */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute right-0 bottom-0 size-4 cursor-nwse-resize"
-        onMouseDown={createResizeMouseDownHandler("se")}
+        className="absolute right-0 bottom-0 size-4 cursor-nwse-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("se")}
       />
       {/* Left edge */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute top-12 bottom-0 left-0 w-1 cursor-ew-resize"
-        onMouseDown={createResizeMouseDownHandler("w")}
+        className="absolute top-12 bottom-0 left-0 w-1 cursor-ew-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("w")}
       />
       {/* Top edge (below title bar) */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute top-12 right-0 left-0 h-1 cursor-ns-resize"
-        onMouseDown={createResizeMouseDownHandler("n")}
+        className="absolute top-12 right-0 left-0 h-1 cursor-ns-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("n")}
       />
       {/* Top-left corner */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute top-12 left-0 size-4 cursor-nwse-resize"
-        onMouseDown={createResizeMouseDownHandler("nw")}
+        className="absolute top-12 left-0 size-4 cursor-nwse-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("nw")}
       />
       {/* Top-right corner */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute top-12 right-0 size-4 cursor-nesw-resize"
-        onMouseDown={createResizeMouseDownHandler("ne")}
+        className="absolute top-12 right-0 size-4 cursor-nesw-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("ne")}
       />
       {/* Bottom-left corner */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: Custom window resize handle */}
-      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Custom window resize handle */}
       <div
-        className="absolute bottom-0 left-0 size-4 cursor-nesw-resize"
-        onMouseDown={createResizeMouseDownHandler("sw")}
+        className="absolute bottom-0 left-0 size-4 cursor-nesw-resize touch-none"
+        onPointerDown={createResizePointerDownHandler("sw")}
       />
     </div>
   );

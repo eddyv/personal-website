@@ -1,3 +1,4 @@
+import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Size {
@@ -25,7 +26,7 @@ interface UseWindowResizeReturn {
   resizeDirection: ResizeDirection;
   handleResizeStart: (
     direction: ResizeDirection
-  ) => (e: React.MouseEvent) => void;
+  ) => (e: React.PointerEvent) => void;
 }
 
 export function useWindowResize(
@@ -45,15 +46,17 @@ export function useWindowResize(
   const startPos = useRef<Position>({ x: 0, y: 0 });
   const startSize = useRef<Size>(initialSize);
   const startWindowPosition = useRef<Position>(currentPosition);
+  const activePointerId = useRef<number | null>(null);
 
   const handleResizeStart = useCallback(
-    (direction: ResizeDirection) => (e: React.MouseEvent) => {
-      if (e.button !== 0) {
+    (direction: ResizeDirection) => (e: React.PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) {
         return;
       }
 
       setIsResizing(true);
       setResizeDirection(direction);
+      activePointerId.current = e.pointerId;
       startPos.current = { x: e.clientX, y: e.clientY };
       startSize.current = { ...size };
       startWindowPosition.current = { ...currentPosition };
@@ -69,7 +72,11 @@ export function useWindowResize(
       return;
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
+      if (activePointerId.current !== e.pointerId) {
+        return;
+      }
+
       const deltaX = e.clientX - startPos.current.x;
       const deltaY = e.clientY - startPos.current.y;
 
@@ -115,17 +122,25 @@ export function useWindowResize(
       }
     };
 
-    const handleMouseUp = () => {
+    const handlePointerEnd = (e: PointerEvent) => {
+      if (activePointerId.current !== e.pointerId) {
+        return;
+      }
+
+      activePointerId.current = null;
       setIsResizing(false);
       setResizeDirection(null);
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerEnd);
+    document.addEventListener("pointercancel", handlePointerEnd);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerEnd);
+      document.removeEventListener("pointercancel", handlePointerEnd);
+      activePointerId.current = null;
     };
   }, [isResizing, resizeDirection, minSize, onPositionChange]);
 

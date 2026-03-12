@@ -13,7 +13,7 @@ interface UseWindowDragOptions {
 interface UseWindowDragReturn {
   position: Position;
   isDragging: boolean;
-  handleMouseDown: (e: React.MouseEvent) => void;
+  handlePointerDown: (e: React.PointerEvent) => void;
   setPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
@@ -25,15 +25,16 @@ export function useWindowDrag(
   const [position, setPosition] = useState<Position>(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
   const dragOffset = useRef<Position>({ x: 0, y: 0 });
+  const activePointerId = useRef<number | null>(null);
 
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      // Only allow dragging from left mouse button
-      if (e.button !== 0) {
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) {
         return;
       }
 
       setIsDragging(true);
+      activePointerId.current = e.pointerId;
       dragOffset.current = {
         x: e.clientX - position.x,
         y: e.clientY - position.y,
@@ -53,7 +54,11 @@ export function useWindowDrag(
       return;
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
+      if (activePointerId.current !== e.pointerId) {
+        return;
+      }
+
       const newX = e.clientX - dragOffset.current.x;
       const newY = e.clientY - dragOffset.current.y;
 
@@ -69,25 +74,35 @@ export function useWindowDrag(
       });
     };
 
-    const handleMouseUp = () => {
+    const handlePointerEnd = (e: PointerEvent) => {
+      if (activePointerId.current !== e.pointerId) {
+        return;
+      }
+
+      activePointerId.current = null;
       setIsDragging(false);
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("pointermove", handlePointerMove);
+    document.addEventListener("pointerup", handlePointerEnd);
+    document.addEventListener("pointercancel", handlePointerEnd);
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("pointermove", handlePointerMove);
+      document.removeEventListener("pointerup", handlePointerEnd);
+      document.removeEventListener("pointercancel", handlePointerEnd);
+      activePointerId.current = null;
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
     };
   }, [isDragging]);
 
   return {
     position,
     isDragging,
-    handleMouseDown,
+    handlePointerDown,
     setPosition,
   };
 }
