@@ -4,7 +4,7 @@ This document provides guidance for AI coding agents working in this repository.
 
 ## Project Overview
 
-A personal website built with Astro 5.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Pages using Bun as the package manager.
+A personal website built with Astro 5.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Pages using Bun as the package manager. and jj (jujutsu) working with github for version control
 
 ## Build/Lint/Test Commands
 

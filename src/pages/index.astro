@@ -1,8 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Background from "@components/background.astro";
-import Dock from "@components/dock.astro";
-import { NotesApp } from "@components/notes-app";
+import { DesktopManager } from "@components/desktop-manager";
 import Layout from "@layouts/layout.astro";
 import type { ImageMetadata } from "astro";
 
@@ -52,8 +51,7 @@ const postsForClient = sortedPosts.map((post) => ({
     })}
   </div>
 
-  <NotesApp client:load posts={postsForClient} />
-  <Dock />
+  <DesktopManager client:load posts={postsForClient} />
 </Layout>
 
 <script>
