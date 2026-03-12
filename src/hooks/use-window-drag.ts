@@ -1,3 +1,4 @@
+import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface Position {
@@ -13,6 +14,7 @@ interface UseWindowDragReturn {
   position: Position;
   isDragging: boolean;
   handleMouseDown: (e: React.MouseEvent) => void;
+  setPosition: React.Dispatch<React.SetStateAction<Position>>;
 }
 
 export function useWindowDrag(
@@ -36,6 +38,9 @@ export function useWindowDrag(
         x: e.clientX - position.x,
         y: e.clientY - position.y,
       };
+
+      document.body.style.cursor = "grabbing";
+      document.body.style.userSelect = "none";
 
       // Prevent text selection while dragging
       e.preventDefault();
@@ -66,6 +71,8 @@ export function useWindowDrag(
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
     };
 
     document.addEventListener("mousemove", handleMouseMove);
@@ -81,5 +88,6 @@ export function useWindowDrag(
     position,
     isDragging,
     handleMouseDown,
+    setPosition,
   };
 }

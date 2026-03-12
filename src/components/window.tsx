@@ -1,3 +1,4 @@
+import { useWindowDrag } from "@hooks/use-window-drag";
 import { useWindowResize } from "@hooks/use-window-resize";
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -26,15 +27,9 @@ export function Window({
   children,
 }: WindowProps): React.ReactElement | null {
   const [isVisible, setIsVisible] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const positionRef = useRef(position);
   const initializedRef = useRef(false);
-
-  // Keep ref in sync with state
-  useEffect(() => {
-    positionRef.current = position;
-  }, [position]);
+  const { handleMouseDown, isDragging, position, setPosition } =
+    useWindowDrag();
 
   // Center window on first open
   useEffect(() => {
@@ -44,7 +39,7 @@ export function Window({
       setPosition({ x, y });
       initializedRef.current = true;
     }
-  }, [isOpen, defaultSize.width, defaultSize.height]);
+  }, [isOpen, defaultSize.width, defaultSize.height, setPosition]);
 
   // Handle visibility animation
   useEffect(() => {
@@ -60,54 +55,15 @@ export function Window({
     (nextPosition: { x: number; y: number }) => {
       setPosition(nextPosition);
     },
-    []
+    [setPosition]
   );
 
-  // Sync drag position back to our state
   const handleDragMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      if (e.button !== 0) {
-        return;
-      }
-
       onFocus?.();
-      setIsDragging(true);
-
-      const startX = e.clientX - positionRef.current.x;
-      const startY = e.clientY - positionRef.current.y;
-
-      const handleMouseMove = (moveEvent: MouseEvent) => {
-        const newX = moveEvent.clientX - startX;
-        const newY = moveEvent.clientY - startY;
-
-        // Keep window within viewport bounds
-        const minY = 40;
-        const maxY = window.innerHeight - 100;
-        const minX = -200;
-        const maxX = window.innerWidth - 200;
-
-        setPosition({
-          x: Math.max(minX, Math.min(maxX, newX)),
-          y: Math.max(minY, Math.min(maxY, newY)),
-        });
-      };
-
-      const handleMouseUp = () => {
-        setIsDragging(false);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-        document.body.style.cursor = "";
-        document.body.style.userSelect = "";
-      };
-
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      document.body.style.cursor = "grabbing";
-      document.body.style.userSelect = "none";
-
-      e.preventDefault();
+      handleMouseDown(e);
     },
-    [onFocus]
+    [handleMouseDown, onFocus]
   );
 
   const { size, isResizing, handleResizeStart } = useWindowResize({
