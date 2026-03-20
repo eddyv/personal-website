@@ -7,6 +7,7 @@ interface WindowProps {
   title: string;
   isOpen: boolean;
   isActive?: boolean;
+  isMobile?: boolean;
   onClose: () => void;
   onFocus?: () => void;
   zIndex?: number;
@@ -19,6 +20,7 @@ export function Window({
   title,
   isOpen,
   isActive = false,
+  isMobile = false,
   onClose,
   onFocus,
   zIndex = 30,
@@ -31,15 +33,23 @@ export function Window({
   const { handlePointerDown, isDragging, position, setPosition } =
     useWindowDrag();
 
-  // Center window on first open
+  // Center window on first open (desktop only)
   useEffect(() => {
-    if (isOpen && !initializedRef.current) {
-      const x = Math.max(0, (window.innerWidth - defaultSize.width) / 2);
-      const y = Math.max(60, (window.innerHeight - defaultSize.height) / 2);
-      setPosition({ x, y });
-      initializedRef.current = true;
+    if (isMobile || !isOpen || initializedRef.current) {
+      return;
     }
-  }, [isOpen, defaultSize.width, defaultSize.height, setPosition]);
+
+    // Clamp default size to viewport
+    const maxWidth = window.innerWidth - 48;
+    const maxHeight = window.innerHeight - 160; // header + dock space
+    const clampedWidth = Math.min(defaultSize.width, maxWidth);
+    const clampedHeight = Math.min(defaultSize.height, maxHeight);
+
+    const x = Math.max(0, (window.innerWidth - clampedWidth) / 2);
+    const y = Math.max(60, (window.innerHeight - clampedHeight) / 2);
+    setPosition({ x, y });
+    initializedRef.current = true;
+  }, [isOpen, isMobile, defaultSize.width, defaultSize.height, setPosition]);
 
   // Handle visibility animation
   useEffect(() => {
@@ -60,10 +70,13 @@ export function Window({
 
   const handleDragPointerDown = useCallback(
     (e: React.PointerEvent) => {
+      if (isMobile) {
+        return;
+      }
       onFocus?.();
       handlePointerDown(e);
     },
-    [handlePointerDown, onFocus]
+    [handlePointerDown, onFocus, isMobile]
   );
 
   const { size, isResizing, handleResizeStart } = useWindowResize({
@@ -82,6 +95,60 @@ export function Window({
     [handleResizeStart, onFocus]
   );
 
+  // Mobile: fullscreen mode
+  if (isMobile) {
+    return (
+      <div
+        aria-hidden={!isOpen}
+        className={`absolute inset-0 overflow-hidden rounded-xl bg-[#1e1e1e] shadow-2xl transition-[opacity,transform,filter] duration-200 ${
+          isVisible && isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        style={{ zIndex }}
+      >
+        {/* Title bar */}
+        <div
+          className={`relative flex h-12 items-center px-4 ${
+            isActive ? "bg-[#2a2a2a]" : "bg-[#252525]"
+          }`}
+        >
+          {/* Traffic light buttons */}
+          <div className="absolute left-4 flex gap-2">
+            <button
+              aria-label="Close window"
+              className="group size-3 rounded-full bg-[#FF5F56] transition-colors hover:bg-[#ff7b73]"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+              type="button"
+            >
+              <span className="flex size-full items-center justify-center text-[8px] text-black/60 opacity-0 group-hover:opacity-100">
+                ×
+              </span>
+            </button>
+            <div className="size-3 rounded-full bg-[#FFBD2E]" />
+            <div className="size-3 rounded-full bg-[#27C93F]" />
+          </div>
+
+          {/* Title */}
+          <div className="flex-1 text-center">
+            <span
+              className={`font-medium text-sm ${
+                isActive ? "text-white/80" : "text-white/55"
+              }`}
+            >
+              {title}
+            </span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="h-[calc(100%-3rem)] overflow-hidden">{children}</div>
+      </div>
+    );
+  }
+
+  // Desktop: floating window mode
   return (
     <div
       aria-hidden={!isOpen}

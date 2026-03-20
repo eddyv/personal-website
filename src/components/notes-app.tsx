@@ -1,3 +1,4 @@
+import { useIsMobile } from "@hooks/use-is-mobile";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -67,6 +68,8 @@ export function NotesApp({ posts: initialPosts }: Props): React.ReactElement {
   const [selectedSlug, setSelectedSlug] = useState<string | null>(
     initialPosts.length > 0 ? initialPosts[0].slug : null
   );
+  const [showContent, setShowContent] = useState(false);
+  const isMobile = useIsMobile();
 
   const selectedPost = posts.find((p) => p.slug === selectedSlug);
   const groupedPosts = groupPostsByYear(posts);
@@ -102,6 +105,105 @@ export function NotesApp({ posts: initialPosts }: Props): React.ReactElement {
       );
   }, []);
 
+  const handleSelectPost = (slug: string) => {
+    setSelectedSlug(slug);
+    if (isMobile) {
+      setShowContent(true);
+    }
+  };
+
+  const handleBack = () => {
+    setShowContent(false);
+  };
+
+  // Mobile: show either sidebar or content, not both
+  if (isMobile) {
+    if (showContent && selectedPost) {
+      return (
+        <div className="flex h-full flex-col bg-[#1e1e1e]">
+          {/* Content toolbar with back button */}
+          <div className="flex h-10 items-center border-white/10 border-b px-3">
+            <button
+              className="flex items-center gap-1 rounded p-1 text-white/60 hover:bg-white/10"
+              onClick={handleBack}
+              type="button"
+            >
+              <svg
+                className="size-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <title>Back</title>
+                <path
+                  d="M15 19l-7-7 7-7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+              <span className="text-sm">Notes</span>
+            </button>
+            <span className="ml-auto text-white/40 text-xs">
+              {formatDate(selectedPost.date)}
+            </span>
+          </div>
+
+          {/* Post content */}
+          <div className="flex-1 overflow-y-auto p-4">
+            <article
+              className="prose prose-invert prose-sm max-w-none prose-a:text-blue-400 prose-headings:text-white/90 prose-li:text-white/70 prose-ol:text-white/70 prose-p:text-white/70 prose-strong:text-white/90 prose-ul:text-white/70"
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: Blog content is pre-rendered and trusted
+              dangerouslySetInnerHTML={{ __html: selectedPost.content }}
+            />
+          </div>
+        </div>
+      );
+    }
+
+    // Mobile list view
+    return (
+      <div className="flex h-full flex-col bg-[#2a2a2a]">
+        {/* Sidebar header */}
+        <div className="flex h-10 items-center border-white/10 border-b px-3">
+          <span className="font-medium text-sm text-white/70">Notes</span>
+        </div>
+
+        {/* Posts list */}
+        <div className="flex-1 overflow-y-auto">
+          {[...groupedPosts.entries()].map(([year, yearPosts]) => (
+            <div key={year}>
+              <div className="sticky top-0 bg-[#2a2a2a] px-4 py-2">
+                <span className="font-semibold text-white/40 text-xs">
+                  {year}
+                </span>
+              </div>
+              {yearPosts.map((post) => (
+                <button
+                  className={`w-full border-white/5 border-b px-4 py-3 text-left transition-colors ${
+                    selectedSlug === post.slug
+                      ? "bg-[#3a3a3a]"
+                      : "hover:bg-[#333]"
+                  }`}
+                  key={post.slug}
+                  onClick={() => handleSelectPost(post.slug)}
+                  type="button"
+                >
+                  <div className="font-medium text-white/90">{post.title}</div>
+                  <div className="mt-1 flex items-center gap-2 text-white/40 text-xs">
+                    <span>{formatDateShort(post.date)}</span>
+                    <span className="truncate">{post.preview}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop: side-by-side layout
   return (
     <div className="flex h-full">
       {/* Sidebar */}
