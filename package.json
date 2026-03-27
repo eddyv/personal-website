@@ -39,6 +39,6 @@
     "husky": "^9.1.7",
     "ultracite": "7.0.12",
     "vite-plugin-svgr": "^4.5.0",
-    "wrangler": "^4.72.0"
+    "wrangler": "^4.73.0"
   }
 }
