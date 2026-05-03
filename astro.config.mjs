@@ -25,6 +25,34 @@ export default defineConfig({
         "react-dom/server": "react-dom/server.edge",
       },
     },
+    // Pre-bundle SSR deps for the Astro 6 + @astrojs/cloudflare 13 dev server.
+    // Two problems being worked around:
+    //  1. On-demand discovery restarts the SSR worker mid-request → 500s.
+    //  2. CJS deps (e.g. `debug`) reference top-level `module`, which the
+    //     workerd module runner doesn't define → "module is not defined".
+    //     Pre-bundling wraps them with esbuild's __commonJS shim.
+    ssr: {
+      optimizeDeps: {
+        include: [
+          "astro/zod",
+          "astro/env/runtime",
+          "astro/assets/services/noop",
+          "astro-seo",
+          "astro-icon/components",
+          "debug",
+          "@portabletext/to-html",
+          "emdash",
+          "emdash/db/sqlite",
+          "emdash/media/local-runtime",
+          "emdash/middleware",
+          "emdash/middleware/auth",
+          "emdash/middleware/redirect",
+          "emdash/middleware/request-context",
+          "emdash/middleware/setup",
+          "emdash/storage/local",
+        ],
+      },
+    },
   },
 
   env: {
