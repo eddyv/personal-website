@@ -1,0 +1,2156 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "Initial blog posts",
+    "description": "Seed generated from src/content/blog markdown for the EmDash migration."
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "Posts",
+      "labelSingular": "Post",
+      "description": "Blog posts",
+      "icon": "file-text",
+      "supports": ["drafts", "revisions"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text"
+        },
+        {
+          "slug": "body",
+          "label": "Content",
+          "type": "portableText"
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "tag",
+      "label": "Tags",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": ["posts"]
+    }
+  ],
+  "content": {
+    "posts": [
+      {
+        "id": "deciding-to-become-event-driven-enterprise",
+        "slug": "deciding-to-become-event-driven-enterprise",
+        "status": "published",
+        "publishedAt": "2021-08-23T00:00:00.000Z",
+        "data": {
+          "title": "Deciding to Become an Event Driven Enterprise",
+          "excerpt": "So, when is an organization ready for event-driven architectures?",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "k2",
+              "style": "h1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k1",
+                  "text": "Deciding to Become an Event Driven Enterprise"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k6",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k3",
+                  "text": "More and more, we see IT organizations gravitate towards and adopt event-driven architectures (EDA). Some of them know exactly what they are getting into; others not so much. On a personal level, I love EDA. My entire career is built on the base of EDA. When event-driven architectures are done well, I find that life can be rather "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k4",
+                  "text": "simple",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k5",
+                  "text": ". In a perfect world, adding a new piece or feature to our event-driven puzzle becomes effortless. However, I recognize that event-driven architectures can be difficult to adopt; they have a steep learning curve that requires time to get right as well as the correct infrastructure and expertise. I've seen event-driven architectures gone WRONG, but that doesn't mean event-driven architectures are bad, it just means that it may not have been right for you... Yet."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k8",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k7",
+                  "text": "So, when is an organization ready for event-driven architectures?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k10",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k9",
+                  "text": "EDA - A definition"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k12",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k11",
+                  "text": "To oversimplify, event-driven architecture is a software design pattern that allows for information/data or \"events\" from one system to be communicated to other (potentially unknown) systems. Commonly done through the use of an event broker, a.k.a. message-oriented middleware, where data is stored into message queues/topics and produced/consumed by clients (publishers/subscribers). Now that that's out of the way, let's see if EDA is right for you!"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k14",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k13",
+                  "text": "A turning point // The why"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k16",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k15",
+                  "text": "If you've never dealt with event-driven systems, then the decision to turn your organization's underlying architecture from a traditional model to an event-driven model is a difficult one. After all, our traditional model has provided us with so much success! It is the backbone of our business, so why would we want to change it?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k20",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k17",
+                  "text": "Inevitably, there comes a time when your organization's growth reaches a breaking point. That breaking point only surfaces when you introduce enough "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k18",
+                  "text": "actors",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k19",
+                  "text": " to your domain. An actor can be thought of as a group of users or stakeholders that require the system to change in some way. These actors all have their own wants and needs, but it's not so easy keeping things cordial amongst actors. Occasionally, the desires of one actor directly interfere with the desires of another. This creates a tension within the organization and makes decision-making that much harder, thus stunting your growth. How could we possibly keep all the actors happy?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k23",
+              "style": "blockquote",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k21",
+                  "text": "\"A module should be responsible to one, and only one, actor\"",
+                  "marks": ["em"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k22",
+                  "text": " — Robert C. Martin"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k25",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k24",
+                  "text": "Humble beginnings"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k27",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k26",
+                  "text": "Consider the following simple application architecture, where we have fiber customers interacting with a mobile application to help manage their fiber accounts and services. When a customer performs an action in the app, it will communicate directly with our backend service, perform some super fun and complex business operations as well as propagate some changes to our database."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k28",
+              "asset": {
+                "url": "/blog/event-driven-enterprise/simple-arch.png"
+              },
+              "alt": "Simple Application Architecture"
+            },
+            {
+              "_type": "block",
+              "_key": "k32",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k29",
+                  "text": "Nothing too crazy here. This is something we all may have experienced before in some capacity (professional or otherwise). The best thing about this architecture is that in many cases, it just works! Our customers are happy that the app is bringing them value via the ability to easily manage their account through the app instead of having to call in and speak with a representative. Additionally, our business is happy that our customer base is growing as a result of our easy-to-use application, giving us an edge on the competition. Thus, we're all on cloud 9. Overall a great success. "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k30",
+                  "text": "But what happens next after success",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k31",
+                  "text": "?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k36",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k33",
+                  "text": "Where there is success, there is growth! Just because something is successful doesn't mean it's finished. "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k34",
+                  "text": "Software is rarely considered finished",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k35",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k38",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k37",
+                  "text": "Sudden growth"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k40",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k39",
+                  "text": "Consider the following, with the success of our application, our business now sees an opportunity to introduce another actor into the space (another revenue stream). This time, instead of only serving fiber customers, we will now introduce fiber installers to our workflow. Our fiber installers have their own front-end application (a tablet) that has access to the same tools and services offered to our fiber customers. With the added bonus that fiber installers can provide a discounted rate to our customers when onsite."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k41",
+              "asset": {
+                "url": "/blog/event-driven-enterprise/multiple-actors.png"
+              },
+              "alt": "Simple Application Architecture With Multiple Actors"
+            },
+            {
+              "_type": "block",
+              "_key": "k45",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k42",
+                  "text": "Here's where conflict starts. It may not be so simple to just change the rate for our services depending on the actor. Installers need access to their own billing methods and options. These billing methods "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k43",
+                  "text": "should not",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k44",
+                  "text": " interfere with those that already exist for fiber customers, or the business could potentially lose a fair chunk of change by charging incorrect amounts to our customers. Suddenly, to make this seemingly simple change requires an expensive and time-consuming regression test!"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k47",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k46",
+                  "text": "The result? Changes are slower, more expensive, and become progressively more taxing on our common infrastructure. However, we do have a solution!"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k49",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k48",
+                  "text": "A solution // Introducing event brokers"
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k50",
+              "asset": {
+                "url": "/blog/event-driven-enterprise/event-driven-arch.png"
+              },
+              "alt": "Event Driven Architecture Example"
+            },
+            {
+              "_type": "block",
+              "_key": "k60",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k53",
+                  "href": "https://en.wikipedia.org/wiki/Event-driven_architecture"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k51",
+                  "text": "In comes our event-broker (Kafka)",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k52",
+                  "text": ". For those unfamiliar, Kafka is a distributed event streaming platform, meaning that it's an expert at distributing messages from system to system in near real-time. With Kafka, we introduce an event-driven backbone for service-based architecture. This backbone is the piece that finally allows us to decouple our actors from each other by promoting the production, detection, consumption of, and reaction to events ("
+                },
+                {
+                  "_type": "span",
+                  "_key": "k54",
+                  "text": "Event-Driven Architecture",
+                  "marks": ["k53"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k55",
+                  "text": "). We do so by first modifying our original application architecture. The backend REST API that our actors used to communicate with no longer handles the complex business logic and operations it did in the past. Instead, that service will now "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k56",
+                  "text": "emit events",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k57",
+                  "text": " onto our backbone. These events provide a bunch of information, such as what action was performed and by whom. Multiple services can choose to listen to specific Events emitted onto Kafka, and those services can choose to perform actions on those events. By changing our architecture from a request-reply model to an event-driven model, "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k58",
+                  "text": "our actors are now fully decoupled from one another",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k59",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k66",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k61",
+                  "text": "For example, we now have the capability of separating our billing service for customers and installers. The billing service for customers will ignore any events that come from installers and vice versa. No regression tests are necessary as these "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k62",
+                  "text": "services are no longer tightly coupled",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k63",
+                  "text": ", and better yet, you "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k64",
+                  "text": "open your architecture to extensibility",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k65",
+                  "text": ". Adding a new feature becomes a mere extension of the infrastructure we have in place. Want a separate email marketing campaign service targeting customers when they browse a new fiber plan? Go right ahead and add a listener to Kafka."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k68",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k67",
+                  "text": "Wrapping it up"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k70",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k69",
+                  "text": "In short, it's all about the actors. Actors determine whether you should even consider adopting event-driven architectures. If you have a large (or rapidly growing) number of actors, then the efforts you put into establishing an event-driven backbone for your organization can be planted, and the fruits of your labor will bloom with each actor introduced to your system."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k73",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k71",
+                  "text": "Now the question becomes, "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k72",
+                  "text": "how do we build our Event-Driven Systems at scale?",
+                  "marks": ["strong"]
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k77",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k75",
+                  "href": "https://storiesfromtheherd.com/deciding-to-become-an-event-driven-enterprise-93b1dbbc4931"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k74",
+                  "text": "Originally published on ",
+                  "marks": ["em"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k76",
+                  "text": "Stories from the Herd",
+                  "marks": ["em", "k75"]
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "tag": ["event-driven-architecture", "kafka", "architecture"]
+        }
+      },
+      {
+        "id": "ai-agents-anthropic-mcp-confluent",
+        "slug": "ai-agents-anthropic-mcp-confluent",
+        "status": "published",
+        "publishedAt": "2025-03-25T00:00:00.000Z",
+        "data": {
+          "title": "Powering AI Agents with Real-Time Data Using Anthropic's MCP and Confluent",
+          "excerpt": "Learn how we built an MCP server to give AI agents direct access to real-time data streaming with Confluent.",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "k79",
+              "style": "h1",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k78",
+                  "text": "Powering AI Agents with Real-Time Data Using Anthropic's MCP and Confluent"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k83",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k80",
+                  "href": "https://modelcontextprotocol.io/introduction"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k81",
+                  "text": "Model Context Protocol",
+                  "marks": ["k80"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k82",
+                  "text": " (MCP), introduced by Anthropic, is a new standard that simplifies artificial intelligence (AI) integrations by providing a secure, consistent way to connect AI agents with external tools and data sources."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k88",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k85",
+                  "href": "https://github.com/confluentinc/mcp-confluent"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k84",
+                  "text": "When we saw MCP's potential, we immediately started exploring how we could bring real-time data streaming into the mix. With our long history of supporting open source and open standards, building an "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k86",
+                  "text": "MCP server",
+                  "marks": ["k85"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k87",
+                  "text": " was a natural fit."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k90",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k89",
+                  "text": "With this server, we achieved two big things:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k92",
+              "style": "normal",
+              "level": 1,
+              "listItem": "number",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k91",
+                  "text": "**We gave AI agents direct access to fresh, real-time data**, ensuring that they always operate on the latest information."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k94",
+              "style": "normal",
+              "level": 1,
+              "listItem": "number",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k93",
+                  "text": "**We made managing Confluent easier with natural language** so that users can configure topics, execute Flink SQL, and interact with their data infrastructure without wrestling with complex commands."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k95",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/mcp-claude-ui.png"
+              },
+              "alt": "Prompt to Executing a Tool With Confluent's MCP Server"
+            },
+            {
+              "_type": "block",
+              "_key": "k97",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k96",
+                  "text": "This blog post dives into what we built, how it works, and why real-time data is essential for the future of AI agents."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k99",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k98",
+                  "text": "Let's get into it."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k101",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k100",
+                  "text": "What Is Model Context Protocol?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k103",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k102",
+                  "text": "Today, integrating AI systems with different platforms often requires custom-built solutions that are complex, time-consuming, and difficult to maintain. Developers frequently need to write bespoke code to pull data into AI agents, manually integrating APIs, databases, and external tools. Existing frameworks such as LangChain and LlamaIndex provide mechanisms for these integrations, but they often require one-off connectors for each system, creating fragile, hard-to-scale solutions."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k107",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k104",
+                  "text": "MCP solves this by providing a universal standard that simplifies these connections. Instead of reinventing integrations for every tool or database, developers can use MCP as a "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k105",
+                  "text": "standardized bridge",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k106",
+                  "text": " between AI models and external data sources."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k109",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k108",
+                  "text": "At its core, MCP standardizes how agents retrieve and interact with external data. It provides a structured way to facilitate these interactions for AI systems:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k111",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k110",
+                  "text": "Pull customer records from a database"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k113",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k112",
+                  "text": "Retrieve documents from cloud storage"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k115",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k114",
+                  "text": "Execute workflows based on real-time inputs"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k117",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k116",
+                  "text": "By establishing a common protocol, MCP eliminates much of the complexity and redundancy in building AI-powered workflows. This allows developers to focus on agent logic rather than the underlying integration challenges."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k119",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k118",
+                  "text": "How Does MCP Work?"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k121",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k120",
+                  "text": "MCP operates on a client-server architecture, where AI-powered applications (clients such as Claude Desktop) interact with MCP servers to access external data, tools, and structured prompts. This structured approach ensures that agents can retrieve real-time information, execute predefined actions, and maintain secure, consistent interactions with external systems."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k122",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/mcp-client-interactions.png"
+              },
+              "alt": "MCP client-server interactions"
+            },
+            {
+              "_type": "block",
+              "_key": "k124",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k123",
+                  "text": "At a high level, MCP works by defining three key components within its servers:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k126",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k125",
+                  "text": "**Tools** -- Functions that AI agents can call to perform specific actions, such as making API requests or executing commands (e.g., querying a weather API)."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k128",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k127",
+                  "text": "**Resources** -- Data sources that AI agents can access, similar to REST API endpoints. These provide structured data without performing additional computation."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k130",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k129",
+                  "text": "**Prompts** -- Predefined templates that guide AI models in optimally using tools and resources."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k132",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k131",
+                  "text": "MCP servers act as data gateways, exposing these tools, resources, and prompts to AI applications through a standardized interface. Clients, typically AI-powered systems like assistants or automation tools, communicate with these servers using JSON-RPC 2.0, a lightweight messaging protocol that ensures secure, two-way communication."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k134",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k133",
+                  "text": "In practice, an AI-powered client will:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k136",
+              "style": "normal",
+              "level": 1,
+              "listItem": "number",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k135",
+                  "text": "**Connect to an MCP server** -- The client initiates a connection to discover available tools, resources, and prompts."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k138",
+              "style": "normal",
+              "level": 1,
+              "listItem": "number",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k137",
+                  "text": "**Query or invoke tools/resources** -- Based on user input, the client requests data or executes predefined functions via the MCP server."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k140",
+              "style": "normal",
+              "level": 1,
+              "listItem": "number",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k139",
+                  "text": "**Process and return responses** -- The AI agent processes the retrieved data, applies contextual reasoning, and delivers an appropriate response or action."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k142",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k141",
+                  "text": "This structured approach reduces integration complexity, improves security and governance, and ensures that agents operate with accurate, up-to-date information."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k144",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k143",
+                  "text": "Bringing Real-Time Data to MCP With Confluent"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k146",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k145",
+                  "text": "At Confluent, we've spent years helping companies integrate real-time data into their systems, and MCP presents an opportunity to extend that to AI agents in a standardized way."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k151",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k148",
+                  "href": "https://www.confluent.io/product/confluent-connectors/"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k147",
+                  "text": "AI systems need access to both real-time and historical data to be effective. Confluent already provides "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k149",
+                  "text": "120+ pre-built connectors",
+                  "marks": ["k148"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k150",
+                  "text": ", making it easy to stream data from databases, event systems, and software-as-service (SaaS) applications. By adding MCP support, we give agents direct access to these data sources without requiring one-off integrations."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k153",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k152",
+                  "text": "This reduces the complexity of managing separate data pipelines and ensures that AI-driven workflows operate on the freshest available information."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k155",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k154",
+                  "text": "Confluent MCP Server Implementation"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k160",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k157",
+                  "href": "https://github.com/confluentinc/mcp-confluent"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k156",
+                  "text": "We built an "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k158",
+                  "text": "MCP server",
+                  "marks": ["k157"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k159",
+                  "text": " that connects directly to Confluent, allowing agents to interact with real-time data using natural language."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k161",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/prompt-to-executing-tool.png"
+              },
+              "alt": "Prompt to Executing a Tool With Confluent’s MCP Server"
+            },
+            {
+              "_type": "block",
+              "_key": "k163",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k162",
+                  "text": "Instead of manually configuring topics, writing Flink SQL, or managing connectors, users can issue commands in plain language, and the server will translate them into executable actions."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k165",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k164",
+                  "text": "What It Can Do"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k167",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k166",
+                  "text": "Manage Kafka topics (create, delete, update)"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k169",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k168",
+                  "text": "Produce and consume messages"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k171",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k170",
+                  "text": "Execute Flink SQL queries"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k173",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k172",
+                  "text": "Manage and configure connectors"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k175",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k174",
+                  "text": "Tag and organize topics"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k177",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k176",
+                  "text": "The server makes it easier to connect your agents to data flowing through and helps automate configuration and management."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k181",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k179",
+                  "href": "https://github.com/confluentinc/mcp-confluent"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k178",
+                  "text": "Check it out here: "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k180",
+                  "text": "https://github.com/confluentinc/mcp-confluent",
+                  "marks": ["k179"]
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k183",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k182",
+                  "text": "Each tool in the Confluent MCP server is defined with a name, description, and input parameters, allowing agents to interact with Confluent resources in a structured way."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k185",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k184",
+                  "text": "The current implementation includes 20 built-in tools, and adding new functionality is straightforward: Just define a new tool with its schema and execution logic. This makes it easy to expand the system as new use cases arise."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k187",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k186",
+                  "text": "An Example Interaction With MCP and Confluent"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k189",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k188",
+                  "text": "With MCP, agents can interact with Confluent using natural language, removing the need for manual configurations."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k194",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k191",
+                  "href": "https://github.com/block/goose"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k190",
+                  "text": "To showcase this, we integrated the Confluent MCP server with "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k192",
+                  "text": "Goose",
+                  "marks": ["k191"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k193",
+                  "text": ", an open source AI framework from Block. Goose is designed as an on-machine AI agent that helps developers automate complex tasks. Like the Claude Desktop client, it natively supports MCP, making it easy to connect with external systems."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k196",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k195",
+                  "text": "Here's a walk-through of how the Goose Client interacts with Confluent through our MCP server."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k198",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k197",
+                  "text": "1. Listing All Apache Kafka Topics"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k202",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k199",
+                  "text": "User:",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k200",
+                  "text": " "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k201",
+                  "text": "List all the Kafka topics.",
+                  "marks": ["em"]
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k203",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/list-topics.png"
+              },
+              "alt": "List topics"
+            },
+            {
+              "_type": "block",
+              "_key": "k205",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k204",
+                  "text": "2. Saving a Conversation to Apache Kafka"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k209",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k206",
+                  "text": "User:",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k207",
+                  "text": " "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k208",
+                  "text": "Can you save our conversation history?",
+                  "marks": ["em"]
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k210",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/save-convo.png"
+              },
+              "alt": "Save Conversations"
+            },
+            {
+              "_type": "block",
+              "_key": "k212",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k211",
+                  "text": "Conversation history has been saved to the \"claude-conversations\" topic."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k213",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/cc-conversations.png"
+              },
+              "alt": "Confluent Cloud Conversations"
+            },
+            {
+              "_type": "block",
+              "_key": "k215",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k214",
+                  "text": "3. Retrieving Sample Data From Available Topics"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k219",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k216",
+                  "text": "User:",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k217",
+                  "text": " "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k218",
+                  "text": "Help me sample some data from \"cool\" and \"hello\" topics.",
+                  "marks": ["em"]
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k220",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/retrieve-data.png"
+              },
+              "alt": "Retrieve Data"
+            },
+            {
+              "_type": "block",
+              "_key": "k222",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k221",
+                  "text": "4. Tagging Topics Containing PII"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k226",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k223",
+                  "text": "User:",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k224",
+                  "text": " "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k225",
+                  "text": "Let's create a tag called PII (personally identifiable information). Analyze the topics we've just created and tag them accordingly if they contain PII.",
+                  "marks": ["em"]
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k227",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/tag-topics.gif"
+              },
+              "alt": "Tag Topics"
+            },
+            {
+              "_type": "block",
+              "_key": "k229",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k228",
+                  "text": "5. Changing Retention Time for PII Topics"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k233",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k230",
+                  "text": "User:",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k231",
+                  "text": " "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k232",
+                  "text": "Let's change the retention time for topics marked with PII to \"1 day.\"",
+                  "marks": ["em"]
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k235",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k234",
+                  "text": "These examples show how MCP simplifies interactions with Confluent by allowing natural language-driven data operations. Instead of writing CLI commands or API calls, users can manage Kafka topics, inspect data, and enforce policies with English."
+                }
+              ]
+            },
+            {
+              "_type": "image",
+              "_key": "k236",
+              "asset": {
+                "url": "/blog/ai-agents-anthropic-mcp/change-retention.gif"
+              },
+              "alt": "Change Retention"
+            },
+            {
+              "_type": "block",
+              "_key": "k238",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k237",
+                  "text": "Adding a New Tool"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k240",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k239",
+                  "text": "Each tool in the Confluent MCP server is defined with a name, description, and input parameters, allowing agents to interact with Confluent resources in a structured way. If you wish to add new functionality that is unsupported, you can do this in three simple steps:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k245",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k241",
+                  "text": "1.",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k242",
+                  "text": " Incorporate a new value into the "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k243",
+                  "text": "ToolName",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k244",
+                  "text": " enum."
+                }
+              ]
+            },
+            {
+              "_type": "code",
+              "_key": "k246",
+              "language": "typescript",
+              "code": "// tool-name.ts\nexport enum ToolName {\n  CREATE_TOPICS = \"create-topics\",\n  // existing tool names\n}"
+            },
+            {
+              "_type": "block",
+              "_key": "k253",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k247",
+                  "text": "2.",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k248",
+                  "text": " Incorporate the new tool into the handlers map within the "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k249",
+                  "text": "ToolFactory",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k250",
+                  "text": " class by associating it with the class handler that will be created. For this instance, we will be developing a class named "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k251",
+                  "text": "CreateTopicsHandler",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k252",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "_type": "code",
+              "_key": "k254",
+              "language": "typescript",
+              "code": "// tool-factory.ts\nexport class ToolFactory {\n  private static handlers: Map<ToolName, ToolHandler> = new Map([\n    [ToolName.CREATE_TOPICS, new CreateTopicsHandler()],\n    // existing tool handlers\n  ]);\n}"
+            },
+            {
+              "_type": "block",
+              "_key": "k259",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k255",
+                  "text": "3.",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k256",
+                  "text": " Develop a class that extends the "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k257",
+                  "text": "BaseToolHandler",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k258",
+                  "text": " abstract class. This requires the implementation of two methods:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k262",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k260",
+                  "text": "getToolConfig",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k261",
+                  "text": ": This defines the tool and its appearance to MCP clients."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k265",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k263",
+                  "text": "handle",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k264",
+                  "text": ": This method is called when the tool is invoked."
+                }
+              ]
+            },
+            {
+              "_type": "code",
+              "_key": "k266",
+              "language": "typescript",
+              "code": "// create-topics-handler.ts\nexport class CreateTopicsHandler extends BaseToolHandler {\n  async handle(\n    clientManager: ClientManager,\n    toolArguments: Record<string, unknown>,\n  ): Promise<CallToolResult> {\n    const { topicNames } = createTopicArgs.parse(toolArguments);\n    const success = await (\n      await clientManager.getAdminClient()\n    ).createTopics({\n      topics: topicNames.map((name) => ({ topic: name })),\n    });\n    if (!success) {\n      return this.createResponse(\n        `Failed to create Kafka topics: ${topicNames.join(\",\")}`,\n        true,\n      );\n    }\n    return this.createResponse(\n      `Created Kafka topics: ${topicNames.join(\",\")}`\n    );\n  }\n\n  getToolConfig(): ToolConfig {\n    return {\n      name: ToolName.CREATE_TOPICS,\n      description: \"Create new topic(s) in the Kafka cluster.\",\n      inputSchema: createTopicArgs.shape,\n    };\n  }\n}"
+            },
+            {
+              "_type": "block",
+              "_key": "k268",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k267",
+                  "text": "By following these steps, you can easily add new tools to the MCP server, allowing AI agents to interact more effectively with Confluent resources. This flexibility ensures that the server can adapt to evolving requirements and support a growing range of use cases, making it a valuable asset for organizations looking to integrate AI with real-time data."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k270",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k269",
+                  "text": "Powering Agents With Real-time Data"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k272",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k271",
+                  "text": "AI agents are only as good as the data they have access to."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k274",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k273",
+                  "text": "If they're making decisions based on stale, outdated information, their insights quickly lose relevance. To be effective, agents need real-time access to data across disparate systems, ensuring that they're always working with the most up-to-date context."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k276",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k275",
+                  "text": "That's where MCP and our Confluent MCP server come in."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k278",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k277",
+                  "text": "By providing a standardized way for agents to connect to real-time data streams, structured datasets, and external tools, we eliminate the need for custom, one-off integrations. Agents can retrieve live data, execute actions, and make decisions based on the latest available information, without developers having to write bespoke code for every data source."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k280",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k279",
+                  "text": "Bridging Real-Time and Stored Data"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k287",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k282",
+                  "href": "https://www.confluent.io/product/tableflow/"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k281",
+                  "text": "With "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k283",
+                  "text": "Tableflow",
+                  "marks": ["k282"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k284",
+                  "text": ", we can take this even further by "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k285",
+                  "text": "unifying real-time and stored data",
+                  "marks": ["strong"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k286",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k289",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k288",
+                  "text": "Agents can:"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k291",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k290",
+                  "text": "Perform federated search across vector stores, databases, and data lakes"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k293",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k292",
+                  "text": "Access both historical datasets and live streaming data from a single interface"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k295",
+              "style": "normal",
+              "level": 1,
+              "listItem": "bullet",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k294",
+                  "text": "Query Apache Iceberg and Delta Tables alongside event streams, ensuring seamless access to structured and semi-structured data"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k297",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k296",
+                  "text": "This means AI agents are no longer limited to a snapshot of the past. Instead they can react to live events, correlate them with stored knowledge, and deliver timely, informed insights."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k299",
+              "style": "h3",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k298",
+                  "text": "No Custom Integration Required"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k301",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k300",
+                  "text": "Because Confluent already provides 120+ pre-built connectors, AI agents can interconnect with enterprise systems, SaaS platforms, databases, and event streams without additional development effort. The MCP server abstracts away the complexity, making all this data immediately accessible through a common interface."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k303",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k302",
+                  "text": "With this approach, developers don't need to build and maintain fragile, custom pipelines. Instead they can focus on designing intelligent agents."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k305",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k304",
+                  "text": "Wrapping Up"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k307",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k306",
+                  "text": "If you're building AI-driven applications and want to see how MCP can simplify your workflows, try out our MCP server and let us know what you think."
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k312",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k309",
+                  "href": "https://github.com/confluentinc/mcp-confluent"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k308",
+                  "text": "Check it out on "
+                },
+                {
+                  "_type": "span",
+                  "_key": "k310",
+                  "text": "GitHub",
+                  "marks": ["k309"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k311",
+                  "text": ", experiment with it, and share your feedback. We'd love to hear from you!"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k320",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k314",
+                  "href": "https://www.confluent.io/blog/ai-agents-using-anthropic-mcp/"
+                },
+                {
+                  "_type": "link",
+                  "_key": "k317",
+                  "href": "https://www.confluent.io/blog/author/sean-falconer/"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k313",
+                  "text": "Originally published on the ",
+                  "marks": ["em"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k315",
+                  "text": "Confluent Blog",
+                  "marks": ["em", "k314"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k316",
+                  "text": ". Co-authored with ",
+                  "marks": ["em"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k318",
+                  "text": "Sean Falconer",
+                  "marks": ["em", "k317"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k319",
+                  "text": ".",
+                  "marks": ["em"]
+                }
+              ]
+            }
+          ]
+        },
+        "taxonomies": {
+          "tag": ["ai", "mcp", "confluent", "kafka", "agents"]
+        }
+      }
+    ]
+  }
+}

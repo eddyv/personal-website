@@ -9,6 +9,6 @@
     "ultracite/biome/astro"
   ],
   "files": {
-    "includes": ["!dist", "!node_modules", "!.wrangler"]
+    "includes": ["!dist", "!node_modules", "!.wrangler", "!scripts", "!seeds"]
   }
 }
