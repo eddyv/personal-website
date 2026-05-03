@@ -6,6 +6,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 import icon from "astro-icon";
+import emdash, { local } from "emdash/astro";
+import { sqlite } from "emdash/db";
 import svgr from "vite-plugin-svgr";
 
 // https://astro.build/config
@@ -72,6 +74,13 @@ export default defineConfig({
           "linkedin",
         ],
       },
+    }),
+    emdash({
+      database: sqlite({ url: "file:./data.db" }),
+      storage: local({
+        directory: "./uploads",
+        baseUrl: "/_emdash/api/media/file",
+      }),
     }),
   ],
 
