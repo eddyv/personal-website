@@ -1,61 +1,86 @@
 ---
-import { getCollection, render } from "astro:content";
 import Background from "@components/background.astro";
 import { DesktopManager } from "@components/desktop-manager";
 import Layout from "@layouts/layout.astro";
+import { toHTML } from "@portabletext/to-html";
 import type { ImageMetadata } from "astro";
+import { getAllTermsForEntries, getEmDashCollection } from "emdash";
 
-// Get all wallpapers using import.meta.glob
 const wallpaperModules = Object.values(
   import.meta.glob<{ default: ImageMetadata }>(
     "/src/assets/wallpapers/*.{jpeg,jpg,png,gif}"
   )
 );
 
-// Select and load random wallpaper
 const randomModule =
   wallpaperModules[Math.floor(Math.random() * wallpaperModules.length)];
 const { default: randomWallpaper } = await randomModule();
 
-// Get blog posts for Notes app
-const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
+interface EmdashPostData {
+  title: string;
+  excerpt?: string;
+  body?: unknown;
+}
 
-// Sort by date descending
-const sortedPosts = blogPosts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
+interface EmdashPost {
+  id: string;
+  publishedAt?: Date | string | null;
+  data: EmdashPostData;
+}
 
-// Prepare posts metadata for client (content will be hydrated from hidden divs)
-const postsForClient = sortedPosts.map((post) => ({
-  slug: post.id,
-  title: post.data.title,
-  date: post.data.date.toISOString(),
-  preview: post.data.preview,
-  tags: post.data.tags,
-  content: "", // Will be hydrated client-side
-}));
+const { entries: rawEntries, error } = await getEmDashCollection("posts", {
+  status: "published",
+});
+
+if (error) {
+  console.error("[index] Failed to load posts from EmDash:", error);
+}
+
+const posts = [...(rawEntries as unknown as EmdashPost[])].sort((a, b) => {
+  return (
+    new Date(b.publishedAt ?? 0).getTime() -
+    new Date(a.publishedAt ?? 0).getTime()
+  );
+});
+
+const tagMap = posts.length
+  ? await getAllTermsForEntries(
+      "posts",
+      posts.map((p) => p.id)
+    )
+  : new Map();
+
+const postsForClient = posts.map((post) => {
+  const date =
+    post.publishedAt instanceof Date
+      ? post.publishedAt.toISOString()
+      : (post.publishedAt ?? "");
+  return {
+    slug: post.id,
+    title: post.data.title,
+    date,
+    preview: post.data.excerpt ?? "",
+    tags: (tagMap.get(post.id)?.tag ?? []).map(
+      (term: { slug: string }) => term.slug
+    ),
+    content: "",
+  };
+});
 ---
 
 <Layout backgroundImage={randomWallpaper.src}>
   <Background src={randomWallpaper} />
 
-  <!-- Render blog content to hidden divs for client-side hydration -->
   <div id="blog-content-store" class="hidden">
-    {sortedPosts.map(async (post) => {
-      const { Content } = await render(post);
-      return (
-        <div data-slug={post.id}>
-          <Content />
-        </div>
-      );
-    })}
+    {posts.map((post) => (
+      <div data-slug={post.id} set:html={toHTML((post.data.body ?? []) as Parameters<typeof toHTML>[0])} />
+    ))}
   </div>
 
   <DesktopManager client:load posts={postsForClient} />
 </Layout>
 
 <script>
-  // Hydrate blog content into the NotesApp after DOM is ready
   const hydrateContent = () => {
     const store = document.getElementById("blog-content-store");
     if (!store) {
@@ -70,7 +95,6 @@ const postsForClient = sortedPosts.map((post) => ({
       }
     }
 
-    // Dispatch event with content
     window.dispatchEvent(
       new CustomEvent("blog-content-loaded", {
         detail: contentMap,
@@ -78,7 +102,6 @@ const postsForClient = sortedPosts.map((post) => ({
     );
   };
 
-  // Run on load
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", hydrateContent);
   } else {
