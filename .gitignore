@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # wrangler
 .wrangler/
+
+# test artifacts
+test-results/
+playwright-report/
