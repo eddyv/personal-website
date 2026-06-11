@@ -4,7 +4,7 @@ This document provides guidance for AI coding agents working in this repository.
 
 ## Project Overview
 
-A personal website built with Astro 6.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Workers using Bun as the package manager. and jj (jujutsu) working with github for version control
+A personal website built with Astro 6.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Workers using Bun as the package manager and git with GitHub for version control.
 
 Note: the dev server runs SSR in Cloudflare's workerd runtime (via
 `@cloudflare/vite-plugin`). If dev 500s with "module is not defined" or
