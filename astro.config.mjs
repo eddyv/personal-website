@@ -13,6 +13,11 @@ export default defineConfig({
   site: "https://edwardvaisman.ca",
   trailingSlash: "never",
 
+  // The dev toolbar overlays the dock and intercepts Playwright clicks.
+  devToolbar: {
+    enabled: !process.env.PLAYWRIGHT_TEST,
+  },
+
   vite: {
     plugins: [tailwindcss(), svgr({ include: "**/*.svg?react" })],
     resolve: {

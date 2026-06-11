@@ -85,9 +85,9 @@ let rateLimiter: RateLimiter | null = null;
 /**
  * Middleware for rate limiting API requests.
  *
- * This middleware implements rate limiting functionality for API endpoints using both client ID and IP address
- * for identification. It tracks request counts within configured time windows and enforces rate limits
- * by returning 429 status codes when limits are exceeded.
+ * This middleware implements rate limiting functionality for API endpoints keyed
+ * by client IP address. It tracks request counts within configured time windows
+ * and enforces rate limits by returning 429 status codes when limits are exceeded.
  *
  * @param context - The middleware context containing the request object
  * @param next - The function to call the next middleware in the chain
@@ -119,18 +119,15 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
     return next();
   }
 
-  // Use both client ID and IP for more robust rate limiting
-  const clientId = request.headers.get("X-Client-ID");
+  // Key rate limits by IP only: keying on the client-supplied X-Client-ID
+  // would let callers reset their bucket by rotating the header.
   const clientIP =
     request.headers.get("CF-Connecting-IP") ||
     request.headers.get("X-Forwarded-For") ||
     request.headers.get("X-Real-IP") ||
     "unknown";
 
-  // Combine both identifiers for better rate limiting
-  const identifier = clientId ? `${clientId}-${clientIP}` : clientIP;
-
-  console.log(`Rate limiting request from: ${identifier}`);
+  console.log(`Rate limiting request from: ${clientIP}`);
 
   // Check rate limit
   const isLimited = rateLimiter.isRateLimited(clientIP);

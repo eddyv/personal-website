@@ -53,8 +53,11 @@ export const corsMiddleware = defineMiddleware(async (context, next) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
 
+  // Response properties live on the prototype, so spreading the response
+  // would drop them and reset every status to 200.
   return new Response(response.body, {
-    ...response,
+    status: response.status,
+    statusText: response.statusText,
     headers,
   });
 });

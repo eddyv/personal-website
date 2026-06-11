@@ -16,7 +16,10 @@ export default function Dock({
   openWindowIds,
 }: Props): React.ReactElement {
   return (
-    <div className="fixed bottom-0 left-1/2 z-50 -translate-x-1/2 pb-4">
+    <div
+      className="fixed bottom-0 left-1/2 z-50 -translate-x-1/2 pb-4"
+      data-testid="dock"
+    >
       <div className="flex items-end gap-2 rounded-2xl bg-white/10 px-2 pt-2 pb-2 backdrop-blur-2xl">
         {apps.map((app) => {
           const Icon = app.icon;

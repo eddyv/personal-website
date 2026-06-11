@@ -16,16 +16,36 @@ A personal website built with Astro 5.x (SSR mode), React 19.x, TypeScript, and 
 | `bun run deploy` | Build and deploy to Cloudflare Pages |
 | `bun run check` | Lint check via Ultracite/Biome |
 | `bun run fix` | Auto-fix lint/format issues |
+| `bun run test` | Run unit and e2e suites |
+| `bun run test:unit` | Run Vitest unit tests |
+| `bun run test:unit:watch` | Run Vitest in watch mode |
+| `bun run test:e2e` | Run Playwright e2e tests (spawns its own dev server) |
 | `bun run clean` | Remove `./dist` and `./.astro` directories |
 | `bun run cf-typegen` | Generate Cloudflare Worker types |
 
 ### Testing
 
-No test suite is currently configured. The pre-commit hook runs `ultracite fix` only.
+- Unit tests live in `test/unit/` (Vitest via `getViteConfig`, so `astro:*`
+  virtual modules and tsconfig path aliases resolve). Middleware tests mock
+  `astro:env/server` and `astro:middleware` for determinism.
+- E2e tests live in `test/e2e/` (Playwright, chromium only). The config starts
+  `bun run dev` itself with `PLAYWRIGHT_TEST=1` (disables the Astro dev
+  toolbar, which otherwise intercepts dock clicks) and a raised rate-limit
+  window (every dev request shares the "unknown" client IP).
+- `test/fixtures/expected-posts.ts` is the blog content contract (slugs,
+  titles, ordering, headings, image prefixes). It must keep passing unchanged
+  through framework upgrades and content-system migrations.
+- E2e assertions are semantic (headings, alt text, counts) - never HTML
+  snapshots, so markdown-renderer internals can change without false alarms.
+- IMPORTANT: never run `bun test` - bun's built-in runner grabs `*.test.ts`
+  files but cannot handle `vi.mock`. Always use `bun run test:unit`.
 
 ### Running a Single Test
 
-Not applicable - no test files exist in this codebase.
+```sh
+bunx vitest run test/unit/cors.test.ts
+bunx playwright test test/e2e/notes.spec.ts
+```
 
 ## Code Style Guidelines
 
