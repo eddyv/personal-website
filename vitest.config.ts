@@ -1,13 +1,16 @@
-/// <reference types="vitest/config" />
 import { getViteConfig } from "astro/config";
+import type { ViteUserConfig } from "vitest/config";
 
-export default getViteConfig({
+const config: ViteUserConfig = {
   test: {
     include: ["test/unit/**/*.test.ts"],
     environment: "node",
-    env: {
-      // GOOGLE_API_KEY is the only astro:env schema var without a default.
-      GOOGLE_API_KEY: "test-dummy-key",
-    },
   },
+};
+
+export default getViteConfig(config, {
+  // Skip astro.config.mjs: the Cloudflare adapter's vite plugin validates
+  // worker environments and is incompatible with vitest's node environment.
+  // Unit tests mock astro:env/server and astro:middleware themselves.
+  configFile: false,
 });
