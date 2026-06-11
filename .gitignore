@@ -30,3 +30,12 @@ pnpm-debug.log*
 # test artifacts
 test-results/
 playwright-report/
+
+# emdash local database and runtime media uploads
+data.db
+data.db-wal
+data.db-shm
+data.test.db
+data.test.db-wal
+data.test.db-shm
+uploads/

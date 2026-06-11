@@ -3,9 +3,11 @@
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import { d1, r2 } from "@emdash-cms/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 import icon from "astro-icon";
+import emdash from "emdash/astro";
 import svgr from "vite-plugin-svgr";
 
 // https://astro.build/config
@@ -36,6 +38,15 @@ export default defineConfig({
           "debug",
           "picomatch",
           "tinyglobby",
+          // EmDash submodules loaded at SSR time in workerd
+          "emdash",
+          "emdash/middleware",
+          "emdash/middleware/auth",
+          "emdash/middleware/redirect",
+          "emdash/middleware/request-context",
+          "emdash/middleware/setup",
+          "emdash/runtime",
+          "@astrojs/cloudflare/entrypoints/server",
         ],
       },
     },
@@ -74,6 +85,12 @@ export default defineConfig({
   },
 
   integrations: [
+    // Local dev uses miniflare's local D1/R2 simulation (state lives in
+    // .wrangler/); production provisioning is a separate deploy step.
+    emdash({
+      database: d1({ binding: "DB" }),
+      storage: r2({ binding: "MEDIA" }),
+    }),
     react(),
     sitemap(),
     icon({

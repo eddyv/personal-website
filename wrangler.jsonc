@@ -8,6 +8,21 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "personal-website",
+      // Placeholder for local dev (miniflare simulates D1 locally).
+      // Replace with the real database id when provisioning production.
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "personal-website-media"
+    }
+  ],
   "observability": {
     "enabled": true
   }
