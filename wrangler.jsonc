@@ -3,12 +3,12 @@
   "name": "personal-website",
   "compatibility_date": "2025-02-14",
   "compatibility_flags": ["nodejs_compat"],
-  "pages_build_output_dir": "./dist",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
   "observability": {
     "enabled": true
-  },
-  "vars": {
-    "BUN_VERSION": "1.3.10",
-    "NODE_VERSION": "24.12.0"
   }
 }

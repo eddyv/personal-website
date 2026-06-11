@@ -2,11 +2,17 @@
   "name": "personal-website",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "overrides": {
+    "vite": "^7.3.5"
+  },
   "scripts": {
     "dev": "astro dev",
     "clean": "rm -rf ./dist && rm -rf ./.astro",
     "build": "astro check && astro build",
-    "preview": "wrangler pages dev ./dist",
+    "preview": "wrangler dev -c dist/server/wrangler.json",
     "astro": "astro",
     "check": "ultracite check",
     "fix": "ultracite fix",
@@ -15,13 +21,13 @@
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "prepare": "husky",
-    "deploy": "astro build && wrangler pages deploy",
+    "deploy": "astro build && wrangler deploy -c dist/server/wrangler.json",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.13",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/cloudflare": "^13.7.0",
+    "@astrojs/react": "^5.0.7",
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/dancing-script": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-sans": "^5.2.8",
@@ -29,23 +35,33 @@
     "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.18.1",
+    "astro": "^6.4.6",
     "astro-icon": "^1.1.5",
-    "astro-seo": "^0.8.4",
+    "astro-seo": "^1.1.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@biomejs/biome": "2.3.11",
     "@iconify-json/mdi": "^1.2.3",
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
     "happy-dom": "^20.10.2",
     "husky": "^9.1.7",
+    "typescript": "^5.9.3",
     "ultracite": "7.0.12",
+    "vite": "^7.3.5",
     "vite-plugin-svgr": "^4.5.0",
     "vitest": "^4.1.8",
-    "wrangler": "^4.72.0"
-  }
+    "wrangler": "^4.99.0"
+  },
+  "trustedDependencies": [
+    "@google/genai",
+    "esbuild",
+    "protobufjs",
+    "sharp",
+    "workerd"
+  ]
 }

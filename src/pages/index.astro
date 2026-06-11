@@ -27,7 +27,9 @@ const sortedPosts = blogPosts.sort(
 
 // Prepare posts metadata for client (content will be hydrated from hidden divs)
 const postsForClient = sortedPosts.map((post) => ({
-  slug: post.slug,
+  // glob-loader ids are the extension-less file paths - same values the
+  // legacy `slug` produced, keeping the data-slug contract stable.
+  slug: post.id,
   title: post.data.title,
   date: post.data.date.toISOString(),
   preview: post.data.preview,
@@ -44,7 +46,7 @@ const postsForClient = sortedPosts.map((post) => ({
     {sortedPosts.map(async (post) => {
       const { Content } = await render(post);
       return (
-        <div data-slug={post.slug}>
+        <div data-slug={post.id}>
           <Content />
         </div>
       );

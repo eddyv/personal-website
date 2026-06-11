@@ -41,7 +41,7 @@ jobs:
         run: bun run build
 
       - name: Verify sitemap output
-        run: test -f dist/sitemap-index.xml
+        run: test -f dist/client/sitemap-index.xml
 
       - uses: actions/cache@v4
         with:

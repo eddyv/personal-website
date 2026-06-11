@@ -4,7 +4,13 @@ This document provides guidance for AI coding agents working in this repository.
 
 ## Project Overview
 
-A personal website built with Astro 5.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Pages using Bun as the package manager. and jj (jujutsu) working with github for version control
+A personal website built with Astro 6.x (SSR mode), React 19.x, TypeScript, and Tailwind CSS 4.x. Deployed to Cloudflare Workers using Bun as the package manager and git with GitHub for version control.
+
+Note: the dev server runs SSR in Cloudflare's workerd runtime (via
+`@cloudflare/vite-plugin`). If dev 500s with "module is not defined" or
+"require is not defined", an externalized CJS dependency needs to be added to
+`vite.ssr.optimizeDeps.include` in `astro.config.mjs` - then clear
+`node_modules/.vite` and `.astro` before restarting.
 
 ## Build/Lint/Test Commands
 
@@ -12,8 +18,8 @@ A personal website built with Astro 5.x (SSR mode), React 19.x, TypeScript, and 
 |---------|-------------|
 | `bun run dev` | Start local dev server |
 | `bun run build` | Type check and build (`astro check && astro build`) |
-| `bun run preview` | Preview build with Wrangler Pages |
-| `bun run deploy` | Build and deploy to Cloudflare Pages |
+| `bun run preview` | Serve the built worker locally (`wrangler dev -c dist/server/wrangler.json`; build first) |
+| `bun run deploy` | Build and deploy to Cloudflare Workers |
 | `bun run check` | Lint check via Ultracite/Biome |
 | `bun run fix` | Auto-fix lint/format issues |
 | `bun run test` | Run unit and e2e suites |

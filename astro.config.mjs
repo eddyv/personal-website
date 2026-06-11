@@ -20,12 +20,23 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss(), svgr({ include: "**/*.svg?react" })],
-    resolve: {
-      // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
-      // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
-      // @ts-expect-error
-      alias: import.meta.env.PROD && {
-        "react-dom/server": "react-dom/server.edge",
+    ssr: {
+      optimizeDeps: {
+        // workerd's module runner does not define `module`/`require` as
+        // globals, so externalized CJS deps (e.g. `debug` via astro-icon,
+        // `picomatch` via astro's glob loader) crash dev with "module is not
+        // defined" unless pre-bundled. Clear node_modules/.vite and .astro
+        // when changing this list.
+        include: [
+          "astro/zod",
+          "astro/env/runtime",
+          "astro/assets/services/noop",
+          "astro-seo",
+          "astro-icon/components",
+          "debug",
+          "picomatch",
+          "tinyglobby",
+        ],
       },
     },
   },
@@ -82,9 +93,6 @@ export default defineConfig({
 
   output: "server",
   adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
     imageService: "passthrough",
   }),
 });
