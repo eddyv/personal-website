@@ -18,33 +18,31 @@ const randomModule =
   wallpaperModules[Math.floor(Math.random() * wallpaperModules.length)];
 const { default: randomWallpaper } = await randomModule();
 
-interface PostData {
-  slug: string;
-  title: string;
-  date: Date | string;
-  preview: string;
-  content: unknown;
-}
-
-// Get published blog posts for the Notes app from EmDash
-const { entries, error } = await getEmDashCollection<"posts", PostData>(
-  "posts",
-  { status: "published" }
-);
+// Get published blog posts for the Notes app from EmDash.
+// Entry types come from the generated emdash-env.d.ts collection map.
+const { entries, error } = await getEmDashCollection("posts", {
+  status: "published",
+});
 if (error) {
   // Degrade to an empty Notes list rather than failing the page;
   // the e2e suite pins the expected post count and catches this in CI.
   console.error("Failed to load posts from EmDash:", error);
 }
 
-// Sort by date descending
-const sortedPosts = [...(entries ?? [])].sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
+// Posts without a slug cannot be keyed in the content store; sort date desc.
+const sortedPosts = (entries ?? [])
+  .flatMap((entry) =>
+    entry.data.slug === null
+      ? []
+      : [{ slug: entry.data.slug, data: entry.data }]
+  )
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
 
 // Prepare posts metadata for client (content will be hydrated from hidden divs)
 const postsForClient = sortedPosts.map((post) => ({
-  slug: post.data.slug,
+  slug: post.slug,
   title: post.data.title,
   date: new Date(post.data.date).toISOString(),
   preview: post.data.preview,
@@ -59,7 +57,7 @@ const postsForClient = sortedPosts.map((post) => ({
   <!-- Render blog content to hidden divs for client-side hydration -->
   <div id="blog-content-store" class="hidden">
     {sortedPosts.map((post) => (
-      <div data-slug={post.data.slug}>
+      <div data-slug={post.slug}>
         <PortableText value={post.data.content} />
       </div>
     ))}
