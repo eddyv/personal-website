@@ -113,6 +113,26 @@ describe("rateLimiterMiddleware", () => {
     expect(response.headers.get("Retry-After")).toBeTruthy();
   });
 
+  it("does not invoke next() once the limit is exceeded", async () => {
+    const { rateLimiterMiddleware } = await importRateLimiterModule();
+    const next = vi.fn(passthroughNext);
+    const context = () =>
+      createContext("https://example.com/api/llm/gemini", {
+        "CF-Connecting-IP": "10.0.0.3",
+      });
+
+    await rateLimiterMiddleware(context(), next);
+    await rateLimiterMiddleware(context(), next);
+    await rateLimiterMiddleware(context(), next);
+    expect(next).toHaveBeenCalledTimes(3);
+
+    const limited = expectResponse(
+      await rateLimiterMiddleware(context(), next)
+    );
+    expect(limited.status).toBe(429);
+    expect(next).toHaveBeenCalledTimes(3); // unchanged — the work was skipped
+  });
+
   it("returns 429 with a JSON body once the limit is exceeded", async () => {
     const { rateLimiterMiddleware } = await importRateLimiterModule();
     const context = () =>

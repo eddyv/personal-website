@@ -140,17 +140,6 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   const isLimited = rateLimiter.isRateLimited(clientIP);
   const { remaining, resetTime } = rateLimiter.getRateLimitInfo(clientIP);
 
-  // Add rate limit headers to all responses
-  const response = await next();
-  const headers = new Headers(response.headers);
-
-  headers.set("X-RateLimit-Remaining", remaining.toString());
-  headers.set("X-RateLimit-Reset", resetTime?.toString() || "");
-  headers.set(
-    "Retry-After",
-    Math.ceil((resetTime - Date.now()) / 1000).toString()
-  );
-
   if (isLimited) {
     return new Response(
       JSON.stringify({
@@ -169,6 +158,16 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
       }
     );
   }
+
+  const response = await next();
+  const headers = new Headers(response.headers);
+
+  headers.set("X-RateLimit-Remaining", remaining.toString());
+  headers.set("X-RateLimit-Reset", resetTime?.toString() || "");
+  headers.set(
+    "Retry-After",
+    Math.ceil((resetTime - Date.now()) / 1000).toString()
+  );
 
   return new Response(response.body, {
     status: response.status,

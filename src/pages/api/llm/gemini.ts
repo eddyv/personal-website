@@ -7,14 +7,12 @@ import {
 import { GoogleGenAI } from "@google/genai";
 import type { APIRoute } from "astro";
 
-interface RequestBody {
-  message: string;
-}
-
 export interface AIResponseBody {
   response?: string;
   error?: string;
 }
+
+const MAX_MESSAGE_LENGTH = 2000;
 
 const ai = new GoogleGenAI({ apiKey: GOOGLE_API_KEY });
 /**
@@ -96,8 +94,48 @@ export const POST: APIRoute = async ({
 }: {
   request: Request;
 }): Promise<Response> => {
+  let message: string;
+
   try {
-    const { message }: RequestBody = await request.json();
+    const body: unknown = await request.json();
+    const parsed = body as Record<string, unknown> | null;
+    if (typeof parsed?.message !== "string") {
+      const errorResponse: AIResponseBody = { error: "Invalid request body" };
+      return new Response(JSON.stringify(errorResponse), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    message = parsed.message;
+  } catch {
+    const errorResponse: AIResponseBody = { error: "Invalid request body" };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (message.trim().length === 0) {
+    const errorResponse: AIResponseBody = {
+      error: "Message must not be empty",
+    };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    const errorResponse: AIResponseBody = {
+      error: "Message must be at most 2000 characters",
+    };
+    return new Response(JSON.stringify(errorResponse), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  try {
     const resumeData: string = await downloadResume(RESUME_URL);
 
     const response = await ai.models.generateContent({
@@ -123,9 +161,10 @@ export const POST: APIRoute = async ({
       },
     });
   } catch (error) {
-    const errorMessage: string =
-      error instanceof Error ? error.message : "An unknown error occurred";
-    const errorResponse: AIResponseBody = { error: errorMessage };
+    console.error("gemini endpoint error:", error);
+    const errorResponse: AIResponseBody = {
+      error: "Sorry, something went wrong while generating a response.",
+    };
     return new Response(JSON.stringify(errorResponse), {
       status: 500,
       headers: {
