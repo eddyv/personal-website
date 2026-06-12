@@ -8,6 +8,21 @@
     "directory": "./dist",
     "binding": "ASSETS"
   },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "personal-website",
+      // Production database; local dev uses miniflare's simulation and
+      // never touches it.
+      "database_id": "2e8348e0-3fde-4361-9445-a77814e4fc6e"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "personal-website-media"
+    }
+  ],
   "observability": {
     "enabled": true
   }

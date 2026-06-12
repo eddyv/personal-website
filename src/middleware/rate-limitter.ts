@@ -113,9 +113,16 @@ export const rateLimiterMiddleware = defineMiddleware(async (context, next) => {
   }
 
   const { request } = context;
+  const { pathname } = new URL(request.url);
 
-  // Only apply rate limiting to the AI endpoint
-  if (!request.url.includes("/api/")) {
+  // EmDash admin/API routes manage their own auth; throttling them would
+  // break the editor (saves, media uploads, setup).
+  if (pathname.startsWith("/_emdash/")) {
+    return next();
+  }
+
+  // Only apply rate limiting to our own API endpoints
+  if (!pathname.startsWith("/api/")) {
     return next();
   }
 

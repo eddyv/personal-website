@@ -12,6 +12,32 @@ Note: the dev server runs SSR in Cloudflare's workerd runtime (via
 `vite.ssr.optimizeDeps.include` in `astro.config.mjs` - then clear
 `node_modules/.vite` and `.astro` before restarting.
 
+## Content (EmDash CMS)
+
+Blog content lives in EmDash (database-backed, Portable Text) - NOT in
+markdown files. Key facts:
+
+- Local dev uses Cloudflare D1/R2 simulated by miniflare; state persists in
+  `.wrangler/state/` (gitignored, disposable). `rm -rf .wrangler/state` for a
+  fresh database - the committed `.emdash/seed.json` re-applies on the next
+  dev-server first request (collections + settings; content applies via the
+  setup flow).
+- Admin UI: with the dev server running, visit
+  `http://localhost:4321/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin`
+  once - it completes setup, applies seed content, and logs in a dev admin
+  (dev-only; returns 403 in production builds).
+- Query content with `getEmDashCollection`/`getEmDashEntry` from `emdash` and
+  render with `<PortableText>` from `emdash/ui` (see `src/pages/index.astro`).
+- Post images are served from `public/blog/` and referenced by URL in
+  Portable Text image blocks (`asset.url`) - they are not in the media
+  library.
+- `robots.txt` is served by EmDash's injected route from
+  `settings.seo.robotsTxt` (set in the seed). Do not add
+  `src/pages/robots.txt.ts` - it collides with the injected route.
+- `scripts/markdown-to-seed/` is the one-shot converter that produced
+  `.emdash/seed.json` from the original markdown posts (now deleted). Its
+  conversion logic is unit-tested with inline fixtures.
+
 ## Build/Lint/Test Commands
 
 | Command | Description |
@@ -37,7 +63,9 @@ Note: the dev server runs SSR in Cloudflare's workerd runtime (via
 - E2e tests live in `test/e2e/` (Playwright, chromium only). The config starts
   `bun run dev` itself with `PLAYWRIGHT_TEST=1` (disables the Astro dev
   toolbar, which otherwise intercepts dock clicks) and a raised rate-limit
-  window (every dev request shares the "unknown" client IP).
+  window (every dev request shares the "unknown" client IP). A globalSetup
+  step hits the EmDash dev-bypass endpoint so seed content is applied before
+  the suite runs. If post content looks stale, `rm -rf .wrangler/state`.
 - `test/fixtures/expected-posts.ts` is the blog content contract (slugs,
   titles, ordering, headings, image prefixes). It must keep passing unchanged
   through framework upgrades and content-system migrations.

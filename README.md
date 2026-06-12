@@ -39,6 +39,15 @@ All commands are run from the root of the project:
 | `bun run fix`        | Format and auto-fix with Ultracite          |
 | `bun run cf-typegen` | Generate Cloudflare types                   |
 
+### Content management
+
+Blog posts live in [EmDash CMS](https://docs.emdashcms.com) (Cloudflare
+D1-backed, Portable Text). In local dev, miniflare simulates D1/R2 under
+`.wrangler/state/`. Start the dev server and visit
+`/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin` once to seed the
+content from `.emdash/seed.json` and open the admin panel. To reset the local
+database: `rm -rf .wrangler/state`.
+
 ### Deploying
 
 The site deploys as a Cloudflare Worker (`wrangler deploy` against the

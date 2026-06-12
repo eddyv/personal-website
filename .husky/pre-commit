@@ -1,13 +1,15 @@
-# skipping bun test as it is not relevant for pre-commit hook
-# bun test
-
 #!/bin/sh
-# Exit on any error
-set -e
+
+# Skip entirely for merge commits: the stash dance below clears MERGE_HEAD,
+# which corrupts an in-progress merge. Merge sources were already checked.
+if [ -f "$(git rev-parse --git-dir)/MERGE_HEAD" ]; then
+  echo "Merge commit - skipping pre-commit checks"
+  exit 0
+fi
 
 # Check if there are any staged files
 if [ -z "$(git diff --cached --name-only)" ]; then
-  echo "No staged files to format"
+  echo "No staged files to check"
   exit 0
 fi
 
@@ -18,14 +20,26 @@ STAGED_HASH=$(git diff --cached | sha256sum | cut -d' ' -f1)
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
 PARTIALLY_STAGED=$(git diff --name-only)
 
-# Stash unstaged changes to preserve working directory
-# --keep-index keeps staged changes in working tree
+# Stash unstaged changes so the checks below run against the staged state.
+# `stash push` exits 0 even when there is nothing to stash, so detect whether
+# an entry was actually created - popping a pre-existing stash would be bad.
+STASH_BEFORE=$(git stash list | wc -l)
 git stash push --quiet --keep-index --message "pre-commit-stash" || true
-STASHED=$?
+STASH_AFTER=$(git stash list | wc -l)
+if [ "$STASH_AFTER" -gt "$STASH_BEFORE" ]; then
+  STASHED=0
+else
+  STASHED=1
+fi
 
 # Run formatter on the staged files
 bun x ultracite fix
 FORMAT_EXIT_CODE=$?
+
+# Unit tests against the staged state. E2e stays in CI - far too slow for a
+# commit hook. Never use `bun test` (bun's runner cannot handle vi.mock).
+bun run test:unit
+TEST_EXIT_CODE=$?
 
 # Restore working directory state
 if [ $STASHED -eq 0 ]; then
@@ -37,10 +51,10 @@ if [ $STASHED -eq 0 ]; then
       fi
     done
   fi
-  
+
   # Restore unstaged changes
   git stash pop --quiet || true
-  
+
   # Restore partial staging if files were partially staged
   if [ -n "$PARTIALLY_STAGED" ]; then
     for file in $PARTIALLY_STAGED; do
@@ -66,6 +80,11 @@ fi
 NEW_STAGED_HASH=$(git diff --cached | sha256sum | cut -d' ' -f1)
 if [ "$STAGED_HASH" != "$NEW_STAGED_HASH" ]; then
   echo "✨ Files formatted by Ultracite"
+fi
+
+if [ $TEST_EXIT_CODE -ne 0 ]; then
+  echo "✖ Unit tests failed - commit aborted"
+  exit $TEST_EXIT_CODE
 fi
 
 exit $FORMAT_EXIT_CODE
