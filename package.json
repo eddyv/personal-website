@@ -59,7 +59,7 @@
     "ultracite": "7.0.12",
     "unified": "^11.0.5",
     "vite": "^7.3.5",
-    "vite-plugin-svgr": "^4.5.0",
+    "vite-plugin-svgr": "^5.2.0",
     "vitest": "^4.1.8",
     "wrangler": "^4.99.0",
     "yaml": "^2.9.0"
