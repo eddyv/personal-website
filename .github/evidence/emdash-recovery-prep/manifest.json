@@ -1,0 +1,72 @@
+{
+  "purpose": "Current 0.17.2 application before local D1 backup and after restore into a new local state; no dependency or UI upgrade",
+  "baseCommit": "8579fb2290a6aef3314fe2e705cb3eb05185ff7a",
+  "implementationCommit": "0a3f49024aef3c07b8df3d0d34ad73936818e1cb",
+  "beforeApplicationTree": "d68a89042063ccde16d65b9beee8033fbe196fef",
+  "beforeBuildSourceCommit": "c660f8379038a7dbdfeb1ba7f3a5c53c4d08e370",
+  "beforeBuildSourceTreeMatchesMain": true,
+  "runtime": "Built Cloudflare Worker, Wrangler --local; Node 24.22.0 / Bun 1.3.13",
+  "ports": {
+    "before": 4323,
+    "restored": 4322
+  },
+  "viewportCssPixels": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "browserNormalization": [
+    "Same wallpaper URL",
+    "Clock hidden",
+    "Animations/transitions/caret disabled",
+    "Fonts ready"
+  ],
+  "restoredStateWasNotReseeded": true,
+  "prebootVerification": {
+    "method": "Independent Python SQLite read-only transactions; exact schema and complete typed row multiset for every table; no setup or app requests",
+    "checks": {
+      "complete_schema_matches": true,
+      "every_table_typed_rows_matches": true,
+      "all_typed_rows_match": true,
+      "both_integrity_ok": true,
+      "both_foreign_keys_ok": true,
+      "nonseed_draft_exact_in_both": true,
+      "nonseed_setting_exact_in_both": true,
+      "public_count_matches_proof": true,
+      "all_count_matches_proof": true
+    },
+    "tables": 43,
+    "rows": 81,
+    "schemaObjects": 186,
+    "publishedPosts": 2,
+    "draftPosts": 1
+  },
+  "validation": {
+    "unitTests": 53,
+    "devE2e": 14,
+    "restoredBuiltWorkerE2e": 5,
+    "build": "passed",
+    "lint": "passed",
+    "independentReview": "approved; no blocking findings"
+  },
+  "limits": "Local D1 only. No R2/KV/media/config/secrets or production recovery. No remote D1 calls, migrations, deploys, or live model calls.",
+  "screenshots": {
+    "before-desktop.png": {
+      "sha256": "b805f15c01582e025ddfad53aa1f3b23b75c4d47429ffd86eee24446f038bfcb"
+    },
+    "after-desktop.png": {
+      "sha256": "09493028c55ed720a9a3776f9f4e752ba1aba9d6f99ac05d9bb7007a4047c7c7"
+    },
+    "before-mobile.png": {
+      "sha256": "da897b5ca6cc00eba393c505131c48923f0e8e103b5ad3a497d1d839e2ac3447"
+    },
+    "after-mobile.png": {
+      "sha256": "0918ac8683a7196ed4945783dbaf2b162f7b2335d5c17e45cdb074f19493a1d2"
+    }
+  }
+}
