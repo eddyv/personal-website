@@ -51,7 +51,7 @@
     "@playwright/test": "^1.60.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/mdast": "^4.0.4",
-    "happy-dom": "^20.10.2",
+    "happy-dom": "^20.10.3",
     "husky": "^9.1.7",
     "remark-frontmatter": "^5.0.0",
     "remark-parse": "^11.0.0",
