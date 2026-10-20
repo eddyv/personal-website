@@ -81,15 +81,26 @@ describe("createTerminalCommands", () => {
     });
   });
 
-  it("surfaces API errors for /ai", async () => {
+  it("surfaces the sanitized HTTP 500 API error for /ai", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn(() => Promise.resolve(Response.json({ error: "nope" })))
+      vi.fn(() =>
+        Promise.resolve(
+          Response.json(
+            {
+              error: "Sorry, something went wrong while generating a response.",
+            },
+            { status: 500 }
+          )
+        )
+      )
     );
 
     const commands = createTerminalCommands({ setHistory });
     const output = await commands["/ai"].handle(["hello"]);
-    expect(output).toBe("Error: nope");
+    expect(output).toBe(
+      "Error: Sorry, something went wrong while generating a response."
+    );
   });
 
   it("falls back gracefully when fetch rejects", async () => {

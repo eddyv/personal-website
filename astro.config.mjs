@@ -58,7 +58,7 @@ export default defineConfig({
       GOOGLE_AI_MODEL_ID: envField.string({
         context: "server",
         access: "secret",
-        default: "gemini-3.1-flash-lite-preview",
+        default: "gemini-3.5-flash-lite",
       }),
       RESUME_URL: envField.string({
         context: "server",

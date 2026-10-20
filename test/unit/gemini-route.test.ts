@@ -107,7 +107,7 @@ describe("POST /api/llm/gemini", () => {
     expect(body.response).toBe("ok");
   });
 
-  it("returns 200 with response text for a valid message", async () => {
+  it("uses the configured model with the resume PDF and question and returns response text", async () => {
     const { POST } = await importGeminiRoute();
     generateContent.mockResolvedValueOnce({ text: "hi" });
 
@@ -118,6 +118,23 @@ describe("POST /api/llm/gemini", () => {
     expect(response.status).toBe(200);
     const body = (await response.json()) as { response?: string };
     expect(body.response).toBe("hi");
+    expect(generateContent).toHaveBeenCalledExactlyOnceWith({
+      model: "test-model",
+      contents: [
+        {
+          inlineData: {
+            mimeType: "application/pdf",
+            data: "AAAAAAAAAAA=",
+          },
+        },
+        "Tell me about Edward",
+      ],
+      config: {
+        systemInstruction: expect.stringContaining(
+          "As Edward Vaisman's personal assistant for his resume"
+        ),
+      },
+    });
   });
 
   it("returns 500 without internal details when generateContent rejects", async () => {

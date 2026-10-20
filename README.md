@@ -48,6 +48,33 @@ D1-backed, Portable Text). In local dev, miniflare simulates D1/R2 under
 content from `.emdash/seed.json` and open the admin panel. To reset the local
 database: `rm -rf .wrangler/state`.
 
+### AI model configuration
+
+The resume assistant defaults to stable
+[`gemini-3.5-flash-lite`](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite),
+which supports the existing PDF input and text output. Google's
+[model lifecycle](https://ai.google.dev/gemini-api/docs/deprecations) lists
+the previous `gemini-3.1-flash-lite-preview` as shut down on May 25, 2026.
+
+To override the default locally, set `GOOGLE_AI_MODEL_ID` in your `.env` file:
+
+```dotenv
+GOOGLE_AI_MODEL_ID=gemini-3.5-flash-lite
+```
+
+An existing production Worker override may take precedence over the code
+default. If needed, update it with `bunx wrangler secret put GOOGLE_AI_MODEL_ID`
+for the intended Worker environment. This configuration refresh does not
+change production settings.
+
+For rollback, explicitly override with a supported model such as stable
+`gemini-3.1-flash-lite`, after checking its lifecycle; reverting the code alone
+restores the retired preview default. When choosing a model, check
+[current pricing](https://ai.google.dev/gemini-api/docs/pricing): as of
+October 20, 2026, standard paid rates per million tokens are $0.30 input / $2.50
+output for 3.5 Flash-Lite versus $0.25 input / $1.50 output for 3.1 Flash-Lite
+(text/image/video input).
+
 ### Deploying
 
 The site deploys as a Cloudflare Worker (`wrangler deploy` against the
