@@ -22,7 +22,8 @@
     "test:e2e": "playwright test",
     "prepare": "husky",
     "deploy": "astro build && wrangler deploy -c dist/server/wrangler.json",
-    "cf-typegen": "wrangler types"
+    "cf-typegen": "wrangler types",
+    "cms:recovery": "node scripts/local-d1-recovery.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.7.0",

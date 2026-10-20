@@ -46,7 +46,10 @@ D1-backed, Portable Text). In local dev, miniflare simulates D1/R2 under
 `.wrangler/state/`. Start the dev server and visit
 `/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin` once to seed the
 content from `.emdash/seed.json` and open the admin panel. To reset the local
-database: `rm -rf .wrangler/state`.
+database (discards all local changes): `rm -rf .wrangler/state`. Before an
+EmDash upgrade or reset, use the Node 24 `bun run cms:recovery` tool and
+[local D1 recovery / upgrade runbook](docs/emdash-upgrade.md). This snapshots
+only local D1; media and production recovery need separate procedures.
 
 ### AI model configuration
 
