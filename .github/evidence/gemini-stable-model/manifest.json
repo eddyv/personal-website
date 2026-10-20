@@ -1,0 +1,68 @@
+{
+  "baseCommit": "981aebd5724622d8373d9bb41411476f093e7295",
+  "branch": "fix/gemini-stable-model",
+  "modelChange": {
+    "before": "gemini-3.1-flash-lite-preview",
+    "after": "gemini-3.5-flash-lite"
+  },
+  "comparison": "Separate checkouts with unchanged frozen dependencies; controlled API-failure fixture in real terminal UI.",
+  "viewports": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "browserOnlyNormalization": [
+    "wallpaper1",
+    "hide live clock",
+    "hide animated placeholder",
+    "disable CSS animation/transitions/caret"
+  ],
+  "fixture": {
+    "kind": "browser fetch interception",
+    "request": "POST /api/llm/gemini",
+    "status": 500,
+    "body": {
+      "error": "Sorry, something went wrong while generating a response."
+    },
+    "callsPerCapture": 1,
+    "inputReenabled": true,
+    "removedAfterCapture": true
+  },
+  "checks": {
+    "lint": "passed",
+    "unit": "46 tests in 7 files passed, implementer report",
+    "astroCheck": "53 files, zero diagnostics",
+    "buildAndSitemap": "passed with existing warnings",
+    "e2e": "14 passed in 22.3s, no retries",
+    "review": "architecture/security and final QA approved"
+  },
+  "limitations": [
+    "No live or paid Gemini call; account access and answer quality unverified.",
+    "Browser tests exercise dev SSR, not built Worker.",
+    "Existing Worker override may take precedence; no production settings changed."
+  ],
+  "screenshots": {
+    "beforeDesktop": {
+      "file": "beforeDesktop.png",
+      "sha256": "61de9027fc3ea1eaae65fa2a2fc0742f19a2d4ad9bd6c241a103006172f9279e"
+    },
+    "afterDesktop": {
+      "file": "afterDesktop.png",
+      "sha256": "61de9027fc3ea1eaae65fa2a2fc0742f19a2d4ad9bd6c241a103006172f9279e"
+    },
+    "beforeMobile": {
+      "file": "beforeMobile.png",
+      "sha256": "7283a77f3837e0b53d7ac3fd60c1d77767025a014e5faa4cc9ee59034116f30c"
+    },
+    "afterMobile": {
+      "file": "afterMobile.png",
+      "sha256": "7283a77f3837e0b53d7ac3fd60c1d77767025a014e5faa4cc9ee59034116f30c"
+    }
+  },
+  "implementationCommit": "3bc2c7da76b1a3412ac2595c0ac7921787268c83"
+}
