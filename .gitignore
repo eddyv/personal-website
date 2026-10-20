@@ -27,6 +27,9 @@ pnpm-debug.log*
 # wrangler
 .wrangler/
 
+# private local D1 recovery snapshots and restored rehearsal state
+/.local-recovery/
+
 # test artifacts
 test-results/
 playwright-report/
