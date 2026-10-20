@@ -1,0 +1,53 @@
+{
+  "baseCommit": "981aebd5724622d8373d9bb41411476f093e7295",
+  "branch": "chore/reproducible-dev-setup",
+  "comparison": "Separate before and implementation worktrees, identical frozen dependencies.",
+  "viewports": {
+    "desktop": [
+      1440,
+      1000
+    ],
+    "mobile": [
+      390,
+      844
+    ]
+  },
+  "browserOnlyNormalization": [
+    "wallpaper1",
+    "hide live clock",
+    "hide animated placeholder",
+    "disable CSS animation/transitions/caret"
+  ],
+  "checks": {
+    "lint": "passed",
+    "unit": "46 passed",
+    "astroCheck": "0 errors/warnings/hints",
+    "productionBuild": "passed with dependency/bundle warnings",
+    "e2e": "14 passed in 9.4s on repeat run, no retries"
+  },
+  "limitations": [
+    "Cold-start Vite dependency cache errors observed; warmed restart resolved.",
+    "Browser tests exercise dev SSR, not built Worker.",
+    "Mobile list/read/back manually checked.",
+    "Dark headings and timezone-dependent dates pre-exist."
+  ],
+  "screenshots": {
+    "beforeDesktop": {
+      "file": "beforeDesktop.png",
+      "sha256": "5c8a08834c803befce94a206fcd6961a503424fe845d5c006d366ee346823e68"
+    },
+    "afterDesktop": {
+      "file": "afterDesktop.png",
+      "sha256": "5c8a08834c803befce94a206fcd6961a503424fe845d5c006d366ee346823e68"
+    },
+    "beforeMobileRead": {
+      "file": "beforeMobileRead.png",
+      "sha256": "ad1158d74b13c2095afd0d8cc66b48de9837c701baa5169127e49a15ceda7d8c"
+    },
+    "afterMobileRead": {
+      "file": "afterMobileRead.png",
+      "sha256": "ad1158d74b13c2095afd0d8cc66b48de9837c701baa5169127e49a15ceda7d8c"
+    }
+  },
+  "implementationCommit": "a99f3a1987ce0daa01f83586c6a9769cd6d8ec6f"
+}
